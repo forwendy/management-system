@@ -1,0 +1,177 @@
+/* 处理滚动条显示隐藏页面跳动 */
+html {
+  overflow-y: scroll;
+}
+i {
+  font-style: normal;
+}
+:root {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+:root body {
+  position: absolute;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+}
+/* 处理滚动条显示隐藏页面跳动 */
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', SimSun, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 字体 & 浏览器样式 */
+input,
+textarea {
+  font-family: inherit;
+  -webkit-appearance: none;
+  appearance: none;
+  border: none;
+}
+
+/* 自动填充 */
+input:-webkit-autofill,
+textarea:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+
+/* input:focus,
+textarea:focus{
+  border: none;
+  outline: none;
+} */
+
+/* :-moz-placeholder {
+    color: #bbb;
+}
+::-moz-placeholder {
+    color: #bbb;
+}
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+    color: #bbb;
+}
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+    color: #bbb;
+} */
+
+.border-box {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+.fix:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.fix {
+  *zoom: 1;
+}
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+.img-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.img-contain {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.inaline {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+}
+
+.inline-x {
+  display: -webkit-box !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  /*-webkit-line-clamp:*/
+}
+
+.no-select {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* 禁止换行 */
+.nowrap {
+  white-space: nowrap;
+}
+
+p {
+  margin: 0;
+}
+
+.mask {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+.right-menu {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  width: 100px;
+  color: #000;
+  height: 50px;
+  background: #fff;
+}
+
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+  background-color: transparent;
+}
+/*定义滚动条轨道 内阴影+圆角*/
+::-webkit-scrollbar-track {
+  background-color: transparent;
+  border-radius: 6px;
+}
+/*定义滑块 内阴影+圆角*/
+::-webkit-scrollbar-thumb {
+  background-color: rgba(144, 147, 153, 0.3);
+  border-radius: 4px;
+}

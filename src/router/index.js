@@ -1,28 +1,38 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import children from '@/router/path'
+if (!window.VueRouter) Vue.use(VueRouter)
 
-Vue.use(VueRouter);
-
-const routes = [
+let baseRoute = [
   {
-    path: "/",
-    name: "Home",
-    component: Home,
+    path: '/login',
+    name: '登录',
+    component: (resolve) => require(['@/views/common/Login.vue'], resolve)
   },
   {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue"),
-  },
-];
+    path: '/',
+    name: '首页',
+    component: (resolve) => require(['@/views/common/Home.vue'], resolve),
+    redirect: '/welcome',
+    // 业务路由
+    children
+  }
+]
 
-const router = new VueRouter({
-  routes,
-});
+let router = new VueRouter({
+  // mode: 'history',
+  routes: baseRoute
+})
 
-export default router;
+router.beforeEach((to, from, next) => {
+  if (to.matched.length === 0) {
+    // 匹配前往的路由不存在
+    // 判断此跳转路由的来源路由是否存在，存在的情况跳转到来源路由，否则跳转到404页面
+    from.name ? next({ name: from.name }) : next('/404')
+  } else {
+    // 如果匹配到正确跳转
+    next()
+  }
+})
+
+export default router

@@ -5,11 +5,18 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "build-dev": "vue-cli-service build --mode test",
+    "analyzer": "cross-env use_analyzer=true vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@tinymce/tinymce-vue": "^4.0.0",
     "core-js": "^3.6.5",
+    "cross-env": "^7.0.3",
+    "element-ui": "^2.15.1",
+    "tinymce": "^5.8.0",
     "vue": "^2.6.11",
+    "vue-baidu-map": "^0.21.22",
     "vue-router": "^3.2.0",
     "vuex": "^3.4.0"
   },
@@ -21,13 +28,16 @@
     "@vue/cli-service": "~4.5.0",
     "@vue/eslint-config-prettier": "^6.0.0",
     "babel-eslint": "^10.1.0",
+    "babel-plugin-component": "^1.1.1",
     "eslint": "^6.7.2",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-vue": "^6.2.2",
     "node-sass": "^4.12.0",
     "prettier": "^2.2.1",
-    "sass-loader": "^8.0.2",
-    "vue-template-compiler": "^2.6.11"
+    "sass-loader": "^7.3.1",
+    "vue-template-compiler": "^2.6.11",
+    "webpack-bundle-analyzer": "^4.4.1",
+    "webpack-cdn-plugin": "^3.3.1"
   },
   "eslintConfig": {
     "root": true,
