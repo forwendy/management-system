@@ -1,14 +1,14 @@
 <template>
-  <div class="tab-menus">
+  <div v-show="tabs.length" class="tab-menus">
     <div class="tab-wrapper">
-      <div style=" display: flex; align-items: center;">
+      <div style="display: flex; align-items: center;">
         <i class="el-icon-d-arrow-left prev-btn" :class="{'disabled': index === 0}" title="上一个窗口" @click="toPrev"></i>
         <div class="tab-window">
           <div class="tab-scroll" v-tabChange>
             <template v-for="(obj, i) in tabs">
               <span :key="'tab-item'+i" class="tab-item" :class="{ 'active': active == obj.id }" :id="'tab-'+obj.id">
                 <span class="text" @click="showTab(obj)">{{ obj.name }}</span>
-                <i v-if="obj.id != 'home'" class="iconfont close" @click="removeTab(obj.id)">&#xe633;</i>
+                <i v-if="obj.id != 'home'" class="el-icon-close" @click="removeTab(obj.id)">&#xe633;</i>
               </span>
             </template>
           </div>
@@ -17,7 +17,7 @@
       <i class="el-icon-d-arrow-right next-btn" :class="{'disabled': index === tabs.length-1}" title="下一个窗口" @click="toNext"></i>
     </div>
     <el-dropdown @command="closeTab" class="down-arrow">
-      <span class="el-dropdown-link iconfont down-arrow" style="display: block;">&#xe625;</span>
+      <span class="el-dropdown-link el-icon-arrow-down" style="display: block;"></span>
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item command="a">关闭当前页面</el-dropdown-item>
         <el-dropdown-item command="b">关闭其他页面</el-dropdown-item>
@@ -122,7 +122,7 @@ export default {
   .down-arrow{
     flex-shrink: 0;
     margin-right: 10px;
-    font-size: 12px;
+    font-size: 14px;
     cursor: pointer;
     color: #333;
   }
@@ -167,7 +167,7 @@ export default {
   padding: 4px 10px 3px;
   border-radius: 14px;
   margin-right: 15px;
-  .close{
+  .el-icon-close{
     font-size: 12px;
     line-height: 1;
     width: 13px;
@@ -185,7 +185,7 @@ export default {
   &.active {
     background: $--color-primary;
     color: #fff;
-    .close:hover{
+    .el-icon-close:hover{
       background: rgba(255, 255, 255, .2);
     }
   }

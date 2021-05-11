@@ -8,6 +8,16 @@ Vue.use(ElementUI)
 
 Vue.config.productionTip = false
 
+// Vue指令
+import '@/assets/js/directive'
+// 布局指令
+import '@/assets/js/layout.js'
+// 工具方法
+import * as utils from '@/assets/js/utils.js'
+Vue.prototype.$utils = utils
+// 绑定请求方法
+import axios from '@/api/index.js'
+Vue.prototype.$axios = axios
 // 引入默认图片
 import avatar from './assets/imgs/avator_img_default.png'
 import defaultImg from './assets/imgs/default_img.png'

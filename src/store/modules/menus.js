@@ -3,19 +3,16 @@ import router from '@/router'
 
 const state = {
   // 所有菜单原始数据
-  arr: [],
+  arr: [{
+    id: 'demo',
+    name: 'Demo',
+    path: '/demo'
+  }],
   // tab菜单对象
   tabs: [],
   // 选中的菜单 & 当前显示的tab
   activeId: '',
   leftMenuShow: true,
-
-  home: {
-    id: 'home',
-    name: '首页',
-    path: '/panel',
-    icon: '&#xe600;'
-  },
   
   quickEnter: {
     id: 'quickEnter',
@@ -38,9 +35,7 @@ const getters = {
 
 const mutations = {
   SET_MENUS_DATA(state, payload){
-    state.arr = [state.home].concat(payload)
-    state.tabs = [state.home]
-    state.activeId = 'home'
+    state.arr = payload
   },
   // 添加Tab
   ADD_TAB(state, payload){
@@ -60,14 +55,11 @@ const mutations = {
   },
   // 移除其他tab
   REMOVE_OTHER_TAB(state, id){
-    const arr = state.tabs.filter(obj => obj.id == id)
-    state.tabs = [state.home].concat(arr)
+    state.tabs = state.tabs.filter(obj => obj.id == id)
   },
   // 移除全部tab
-  REMOVE_ALL_TAB(state){
-    state.tabs = [state.home]
-    state.activeId = state.home.id
-    router.replace(state.home.path)
+  REMOVE_ALL_TAB(){
+    router.replace('/')
   },
   // 控制左侧菜单的显示隐藏
   CHANGE_LEFT_MENU(state){
@@ -78,8 +70,8 @@ const mutations = {
 const actions = {
   // 根据路由path判断tab显示
   setActiveTab({ commit, state }, path){
-    const obj = state.tabs.find(el=>el.path == path)
-    if(obj) commit('SHOW_TAB', obj.id)
+    const obj = state.arr.find(el=>el.path == path)
+    if(obj) commit('ADD_TAB', obj)
   },
   // 关闭tab
   closeTab({ commit, state }, id) {

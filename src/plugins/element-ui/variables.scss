@@ -1,8 +1,25 @@
 /*icon字体路径变量*/
 $--font-path: '~element-ui/lib/theme-chalk/fonts';
+$--color-primary: #2684da;
 
 /*按需引入用到的组件的scss文件和基础scss文件*/
 @import '~element-ui/packages/theme-chalk/src/base.scss';
-@import '~element-ui/packages/theme-chalk/src/rate.scss';
+@import '~element-ui/packages/theme-chalk/src/badge.scss';
+@import '~element-ui/packages/theme-chalk/src/link.scss';
 @import '~element-ui/packages/theme-chalk/src/button.scss';
 @import '~element-ui/packages/theme-chalk/src/row.scss';
+@import '~element-ui/packages/theme-chalk/src/tabs.scss';
+@import '~element-ui/packages/theme-chalk/src/table.scss';
+
+@import '~element-ui/packages/theme-chalk/src/table.scss';
+@import '~element-ui/packages/theme-chalk/src/table-column.scss';
+@import '~element-ui/packages/theme-chalk/src/pagination.scss';
+@import '~element-ui/packages/theme-chalk/src/dialog.scss';
+
+@import '~element-ui/packages/theme-chalk/src/dropdown.scss';
+@import '~element-ui/packages/theme-chalk/src/dropdown-item.scss';
+@import '~element-ui/packages/theme-chalk/src/dropdown-menu.scss';
+
+@import '~element-ui/packages/theme-chalk/src/menu.scss';
+@import '~element-ui/packages/theme-chalk/src/menu-item.scss';
+@import '~element-ui/packages/theme-chalk/src/menu-item-group.scss';

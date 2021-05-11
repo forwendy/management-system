@@ -3,7 +3,7 @@ import router from '../router'
 import store from '../store'
 import { Notification, Message } from 'element-ui'
 
-axios.defaults.baseURL = process.env.VUE_APP_API_ROOT
+axios.defaults.baseURL = process.env.VUE_APP_API_ROOT + '/space-os/rest/backstage'
 // 允许跨域
 axios.defaults.crossDomain = true
 // 让ajax携带cookie
@@ -80,5 +80,4 @@ axios.interceptors.response.use(
   }
 )
 
-// 返回在vue中的调用接口
 export default axios

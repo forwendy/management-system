@@ -1,0 +1,79 @@
+{
+  "id": "2539720",
+  "name": "management-system",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "https://github.com/forwendy/management-system.git",
+  "glyphs": [
+    {
+      "icon_id": "7587933",
+      "name": "菜单",
+      "font_class": "menus",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
+    {
+      "icon_id": "6913484",
+      "name": "列表向左",
+      "font_class": "fold",
+      "unicode": "e831",
+      "unicode_decimal": 59441
+    },
+    {
+      "icon_id": "1314233",
+      "name": "疑问",
+      "font_class": "help",
+      "unicode": "e756",
+      "unicode_decimal": 59222
+    },
+    {
+      "icon_id": "2600275",
+      "name": "铃铛",
+      "font_class": "msg",
+      "unicode": "e67d",
+      "unicode_decimal": 59005
+    },
+    {
+      "icon_id": "4316070",
+      "name": "退出",
+      "font_class": "exit",
+      "unicode": "e7ce",
+      "unicode_decimal": 59342
+    },
+    {
+      "icon_id": "7627566",
+      "name": "设置 copy",
+      "font_class": "set",
+      "unicode": "e66f",
+      "unicode_decimal": 58991
+    },
+    {
+      "icon_id": "303802",
+      "name": "iconfont-phone",
+      "font_class": "phone",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "3910704",
+      "name": "密码",
+      "font_class": "lock",
+      "unicode": "e63a",
+      "unicode_decimal": 58938
+    },
+    {
+      "icon_id": "3977209",
+      "name": "姓名 用户名 昵称",
+      "font_class": "user",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "6714684",
+      "name": "验证码 ",
+      "font_class": "verify",
+      "unicode": "e617",
+      "unicode_decimal": 58903
+    }
+  ]
+}

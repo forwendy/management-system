@@ -1,0 +1,90 @@
+/* 筛选表单 */
+.filter-form {
+  margin: 0 15px 15px;
+  padding: 15px 20px 0;
+  display: flex;
+  justify-content: space-between;
+  .el-form-item {
+    margin-bottom: 15px;
+  }
+  .el-form-item__label {
+    color: #000;
+  }
+  .right {
+    width: 206px;
+    margin-bottom: 15px;
+    display: flex;
+    flex-shrink: 0;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  .right .btn {
+    width: 98px;
+    height: 36px;
+    padding: 9px 34px;
+  }
+}
+/* table */
+.table-list {
+  margin: 0 15px;
+  padding: 20px 20px 0;
+  th {
+    padding: 18px 0;
+  }
+  td {
+    padding: 5px 0;
+    font-size: 14px;
+    height: 90px;
+  }
+  th.header-th {
+    background: #f9f9f9;
+    color: #666;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+  }
+  .el-table__body tr.current-row > td {
+    position: relative;
+  }
+  .el-table__body tr.current-row > td:first-child::after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 4px;
+    top: 0;
+    bottom: 0;
+    background: #2684da;
+  }
+}
+/* 编辑表单 */
+.edit-form {
+  .el-radio.is-bordered {
+    line-height: 1;
+  }
+  .but-group {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 50px;
+  }
+  .but-group .el-button {
+    width: 120px;
+    height: 44px;
+    font-size: 20px;
+  }
+  .el-form-item__label {
+    color: #333;
+  }
+  .form-input {
+    width: 218px;
+  }
+  .form-unit {
+    margin-left: 10px;
+  }
+  .form-info {
+    font-size: 12px;
+    margin: 0;
+    line-height: 18px;
+    text-align: justify;
+    margin-top: 10px;
+  }
+}

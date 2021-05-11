@@ -1,6 +1,7 @@
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const WebpackCdnPlugin = require('webpack-cdn-plugin')
 module.exports = {
+  // 访问根路径
   publicPath: `/${process.env.VUE_APP_PROJECT}/`,
   // 输出文件目录
   outputDir: `${process.env.VUE_APP_PROJECT}`,

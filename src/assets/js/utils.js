@@ -54,6 +54,7 @@ export const objectArraySort = function(arr, property) {
   arr.sort(compare(property))
   return arr
 }
+
 // 生成随机数
 export const getUUID = function() {
   var s = []
@@ -78,7 +79,7 @@ export const formatTime = function(t) {
   }
 }
 
-//分组
+// 分组
 export const groupBy = function(list, fn) {
   const groups = {}
   list.forEach(function(o) {
@@ -135,7 +136,8 @@ export const timeCalculate = function(date1, date2) {
   }
   return ''
 }
-// // 一维数组变二维数组
+
+// 一维数组变二维数组
 export const arrTrans = function(num, arr) {
   const newArr = []
   while (arr.length > 0) {

@@ -27,19 +27,6 @@ import Brand from '@/components/layout/Brand.vue'
 export default {
   name: 'Home',
   created() {
-    this.$store.dispatch('spaces/getSites')
-    .then(() => {
-      this.$store.commit(
-        'spaces/changeSite',
-        this.$store.state.spaces.sites[0].location_id
-      )
-      this.$store.dispatch('spaces/getFloors').then(() => {
-        this.$store.commit(
-          'spaces/changeFloor',
-          this.$store.state.spaces.floors[0].id
-        )
-      })
-    })
   },
   components: {
     LeftMenu,
@@ -54,7 +41,17 @@ export default {
       tabs:  state => state.menus.tabs,
       active: state => state.menus.activeId
     })
-  }
+  },
+  watch: {
+    $route: {
+      handler() {
+        // 根据路由判断当前菜单位置
+        const path = this.$route.path
+        this.$store.dispatch('menus/setActiveTab', path)
+      },
+      immediate: true
+    }
+  },
 }
 </script>
 
@@ -64,6 +61,7 @@ export default {
   /* min-width: 1024px; */
   min-width: 1440px;
   position: relative;
+  background: #f5faff;
 }
 .left,
 .right {
@@ -84,6 +82,7 @@ export default {
   left: 0;
   right: 0;
   z-index: 3;
+  background: #ffffff;
 }
 .tab-menu {
   position: absolute;
@@ -91,16 +90,14 @@ export default {
   left: 0;
   right: 0;
   z-index: 2;
-  background: #f5faff;
 }
 .table {
   position: absolute;
-  top: 77px;
+  top: 80px;
   left: 0;
   right: 0;
   bottom: 0;
   z-index: 1;
-  background: #f5faff;
 }
 .left-menu {
   flex-shrink: 0;

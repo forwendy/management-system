@@ -13,6 +13,11 @@ let route = [
     path: '/404',
     name: '找不到页面',
     component: (resolve) => require(['@/views/common/404.vue'], resolve)
+  },
+  {
+    path: '/demo',
+    name: '模板-列表页',
+    component: (resolve) => require(['@/views/demo/ModuleIndex.vue'], resolve)
   }
 ]
 
