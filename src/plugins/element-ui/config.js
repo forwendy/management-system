@@ -4,7 +4,10 @@ import {
   Link,
   Scrollbar,
   Tooltip,
-  
+
+  Image,
+  Carousel,
+  CarouselItem,
   Table,
   TableColumn,
   Pagination,
@@ -16,6 +19,7 @@ import {
   Select,
   Option,
   OptionGroup,
+  Cascader,
   Button,
 
   Tabs,
@@ -45,6 +49,9 @@ export default {
     V.use(Scrollbar)
     V.use(Tooltip)
 
+    V.use(Image)
+    V.use(Carousel)
+    V.use(CarouselItem)
     V.use(Table)
     V.use(TableColumn)
     V.use(Pagination)
@@ -56,6 +63,7 @@ export default {
     V.use(Select)
     V.use(Option)
     V.use(OptionGroup)
+    V.use(Cascader)
     V.use(Button)
 
     V.use(Tabs)

@@ -9,7 +9,7 @@
       <span class="iconfont icon-help"></span>
       <el-badge is-dot class="message"><span class="iconfont icon-msg"></span></el-badge>
       <span class="user">
-        <img class="user-avatar" :src="$res.prefix + useravatar" :onerror="$avatar" />
+        <ImageView class="user-avatar" :prefix="$res.prefix" :src="useravatar" avatar></ImageView>
         <span>{{ username }}</span>
       </span>
       <el-dropdown class="exit" @command="set">
@@ -29,9 +29,11 @@
 
 <script>
 import { mapState } from 'vuex'
+import ImageView from '@/components/ui/ImageView.vue'
 import SetPassword from '@/views/common/SetPassword'
 export default {
   components: {
+    ImageView,
     SetPassword
   },
   data() {
@@ -122,6 +124,7 @@ export default {
   height: 26px;
   border-radius: 50%;
   vertical-align: middle;
+  overflow: hidden;
 }
 .exit .iconfont {
   margin: 0 5px 0 15px;

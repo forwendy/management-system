@@ -1,12 +1,8 @@
 import $axios from '../index.js'
 
 // 用户登录
-const login = ({ name, password }) => {
-  return $axios.post('/', {
-    type,
-    login_name,
-    password
-  }).then((res) => {
+const getPage = (query) => {
+  return $axios.post('/', query).then((res) => {
     if(res.code === 200){
       return res.data
     }else{
@@ -16,5 +12,5 @@ const login = ({ name, password }) => {
 }
 
 export default {
-  login
+  getPage
 }

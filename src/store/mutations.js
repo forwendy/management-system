@@ -1,5 +1,3 @@
-export default {
-  tableLoading(state, payload){
-    state.tableLoading = payload
-  }
+export const tableLoading = (state, payload) => {
+  state.tableLoading = payload
 }

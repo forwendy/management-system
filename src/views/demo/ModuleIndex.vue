@@ -1,7 +1,7 @@
 <template>
   <div class="module-name-index">
     <!-- 按钮组 -->
-    <BtnGroup :arr="btnArr" @add="add" @sort="sort"></BtnGroup>
+    <BtnGroup :arr="btnArr" @add="add"></BtnGroup>
     <!-- 筛选 -->
     <ModuleFilter @submit="queryPage"></ModuleFilter>
     <!-- table 列表 -->
@@ -14,7 +14,8 @@
 </template>
 
 <script>
-import BtnGroup from '@/components/layout/BtnGroup.vue'
+import moduleApi from '@/api/modules/module.js'
+import BtnGroup from '@/components/ui/BtnGroup.vue'
 import ModuleFilter from './ModuleFilter.vue'
 import ModuleList from './ModuleList.vue'
 import ModuleEdit from './ModuleEdit.vue'
@@ -26,7 +27,7 @@ export default {
     ModuleEdit
   },
   created() {
-    this.getPage(this.query)
+    // this.getPage(this.query)
   },
   data() {
     return {
@@ -37,19 +38,21 @@ export default {
           // 权限标志
           rightKey: 'add'
         },
-        {
-          name: '排序',
-          event: 'sort',
-          // 权限标志
-          rightKey: 'sort'
-        }
+        // {
+        //   name: '排序',
+        //   event: 'sort',
+        //   // 权限标志
+        //   rightKey: 'sort'
+        // }
       ],
       query: {
         pageSize: 20, // 全局变量
         pageIndex: 1
       },
       page: {
-        data: [],
+        data: [{
+          imgs: '/1611563240363/7e8a0994-9cf2-42e0-901d-d4af5d48f4c6[1].jpg,1.jpg,/1566802234373/QQ截图20190826145020.jpg'
+        }],
         pageIndex: 0,
         pageSize: 20,
         pageTotal: null,
@@ -61,9 +64,11 @@ export default {
   },
   methods: {
     // 获取页面数据
-    getPage(data) {
+    getPage(query) {
       this.data = []
       this.$store.commit('tableLoading', true)
+      moduleApi.getPage(query)
+
       this.$axios
         .post('/sysdict/page', data)
         .then((res) => {

@@ -20,7 +20,7 @@
 <script>
 export default {
   created() {
-    this.getTypeList()
+    // this.getTypeList()
   },
   data() {
     return {

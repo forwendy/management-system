@@ -8,13 +8,18 @@ $--color-primary: #2684da;
 @import '~element-ui/packages/theme-chalk/src/link.scss';
 @import '~element-ui/packages/theme-chalk/src/button.scss';
 @import '~element-ui/packages/theme-chalk/src/row.scss';
-@import '~element-ui/packages/theme-chalk/src/tabs.scss';
-@import '~element-ui/packages/theme-chalk/src/table.scss';
 
+@import '~element-ui/packages/theme-chalk/src/icon.scss';
+@import '~element-ui/packages/theme-chalk/src/image.scss';
 @import '~element-ui/packages/theme-chalk/src/table.scss';
 @import '~element-ui/packages/theme-chalk/src/table-column.scss';
 @import '~element-ui/packages/theme-chalk/src/pagination.scss';
 @import '~element-ui/packages/theme-chalk/src/dialog.scss';
+
+@import '~element-ui/packages/theme-chalk/src/cascader.scss';
+@import '~element-ui/packages/theme-chalk/src/cascader-panel.scss';
+
+@import '~element-ui/packages/theme-chalk/src/tabs.scss';
 
 @import '~element-ui/packages/theme-chalk/src/dropdown.scss';
 @import '~element-ui/packages/theme-chalk/src/dropdown-item.scss';
