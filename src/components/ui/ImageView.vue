@@ -5,7 +5,7 @@
         <el-carousel-item v-for="src in srcList" :key="src">
           <el-image class="image" :fit="fit" :src="src" :preview-src-list="srcList">
             <!-- 占位图 -->
-            <div slot="placeholder">加载中<span class="dot">...</span></div>
+            <img slot="placeholder" class="img-cover" :src="errorImg" />
             <!-- 加载失败 -->
             <img slot="error" class="img-cover" :src="errorImg" />
           </el-image>
@@ -15,7 +15,7 @@
     <template v-else>
       <el-image class="image" :fit="fit" :src="prefix + src" :preview-src-list="srcList">
         <!-- 占位图 -->
-        <div slot="placeholder">加载中<span class="dot">...</span></div>
+        <img slot="placeholder" class="img-cover" :src="errorImg" />
         <!-- 加载失败 -->
         <img slot="error" class="img-cover" :src="errorImg" />
       </el-image>
@@ -43,7 +43,7 @@ export default {
         return false
       }
     },
-    // 使用头像默认图
+    // 头像默认图
     avatar: {
       type: Boolean,
       default() {
@@ -60,12 +60,7 @@ export default {
       })
     },
     errorImg() {
-      console.log(this.avatar)
-      if (this.avatar) {
-        return avatar
-      } else {
-        return defaultImg
-      }
+      return this.avatar ? avatar : defaultImg
     }
   }
 }
