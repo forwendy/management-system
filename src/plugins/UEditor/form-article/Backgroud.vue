@@ -39,7 +39,7 @@ export default {
     },
     submit(){
       if(this.$refs.image.current) return this.$notify.error({ title: '错误', message: '请等待图片上传完毕'})
-      const image = this.image ? `${this.$res.prefix}${this.image}` : ''
+      const image = this.image ? `${this.$prefix}${this.image}` : ''
       this.$emit('submit', {color: this.color, image: image})
     }
   }

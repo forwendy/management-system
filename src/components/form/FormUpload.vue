@@ -27,9 +27,9 @@
       <div class="img-item" :style="previewStyle" v-for="(obj, i) in arr" :key="i">
         <!-- 类型 -->
         <!-- '?imageView2/1/w/100/h/100' -->
-        <img v-if="type == 'image'" class="img-cover" :src="$res.prefix + obj + showWhPic" :onerror="$errorImg" />
+        <img v-if="type == 'image'" class="img-cover" :src="$prefix + obj + showWhPic" :onerror="$errorImg" />
         <!-- 取视频首帧为缩略图 '?vframe/jpg/offset/0/w/100/h/100' -->
-        <img v-if="type == 'video'" class="img-cover" :src="$res.prefix + obj + showWhVideo" :onerror="$errorImg" />
+        <img v-if="type == 'video'" class="img-cover" :src="$prefix + obj + showWhVideo" :onerror="$errorImg" />
         <img v-if="type == 'file'" class="img-content" src="@/assets/imgs/PDF.png" />
         <!-- 类型 -->
         <div class="dark-mask" >
@@ -41,8 +41,8 @@
 
     <el-dialog :visible.sync="dialogVisible" append-to-body width="80%" top="2vh">
       <!-- 类型 -->
-      <img v-if="type == 'image'" width="100%" :src="$res.prefix + dialogImageUrl" />
-      <video v-if="type == 'video'" width="100%" :src="$res.prefix + dialogImageUrl" controls="controls"></video>
+      <img v-if="type == 'image'" width="100%" :src="$prefix + dialogImageUrl" />
+      <video v-if="type == 'video'" width="100%" :src="$prefix + dialogImageUrl" controls="controls"></video>
       <!-- 类型 -->
     </el-dialog>
   </div>
@@ -114,7 +114,7 @@ export default {
   data() {
     return {
       loading: false, // 上传状态
-      domainQN: this.$res.prefix, // 资源前缀
+      domainQN: this.$prefix, // 资源前缀
       uploadUrlQN: this.$res.upload, // 上传地址
       qiniuTokenUrl: 'portal/qiniu/getToken', // 获取上传token地址
 
@@ -176,7 +176,7 @@ export default {
     // 查看大图
     view(url) {
       if (this.type == 'file') {
-        return window.open(this.$res.prefix + url, '_blank')
+        return window.open(this.$prefix + url, '_blank')
       }
       this.dialogImageUrl = url
       this.dialogVisible = true

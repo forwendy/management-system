@@ -68,7 +68,7 @@ export default {
           commonApi
             .uploadFileQN(file)
             .then((res) => {
-              const src = this.$res.prefix + '/' + res.key
+              const src = this.$prefix + '/' + res.key
               success(src)
             })
             .catch(() => {

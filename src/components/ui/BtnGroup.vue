@@ -100,7 +100,7 @@ export default {
     box-sizing: border-box;
     width: 60px;
     height: 60px;
-    background: opacify($--color-primary, 0.9);
+    background: rgba($--color-primary, 0.9);
     color: #ffffff;
     text-align: center;
     line-height: 60px;

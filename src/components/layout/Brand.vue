@@ -1,6 +1,6 @@
 <template>
   <div class="brand" :class="{ isCollapse: !isCollapse }">
-    <ImageView class="brand-pic" :prefix="$res.prefix" :src="brand.loginBg"></ImageView>
+    <ImageView class="brand-pic" :prefix="$prefix" :src="brand.loginBg"></ImageView>
     <p class="brand-name">{{ brand.name }}</p>
   </div>
 </template>

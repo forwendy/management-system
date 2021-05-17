@@ -9,7 +9,7 @@
       <span class="iconfont icon-help"></span>
       <el-badge is-dot class="message"><span class="iconfont icon-msg"></span></el-badge>
       <span class="user">
-        <ImageView class="user-avatar" :prefix="$res.prefix" :src="useravatar" avatar></ImageView>
+        <ImageView class="user-avatar" :prefix="$prefix" :src="useravatar" avatar></ImageView>
         <span>{{ username }}</span>
       </span>
       <el-dropdown class="exit" @command="set">

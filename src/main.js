@@ -3,9 +3,12 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import ElementUI from '@/plugins/element-ui/config.js'
+// 引入UI组件
 import '@/plugins/element-ui/variables.scss'
 Vue.use(ElementUI)
-
+// 引入上传组件
+import Uploader from '@/plugins/uploader/index.js'
+Vue.use(Uploader)
 Vue.config.productionTip = false
 
 // Vue指令
@@ -20,10 +23,7 @@ import axios from '@/api/index.js'
 Vue.prototype.$axios = axios
 
 // 资源地址
-Vue.prototype.$res = {
-  prefix: process.env.VUE_APP_QI_NIU_PRE, // 七牛云下载前缀
-  upload: process.env.VUE_APP_QI_NIU_UP   // 七牛云上传地址
-}
+Vue.prototype.$prefix = process.env.VUE_APP_QI_NIU_PREFIX
 
 new Vue({
   router,

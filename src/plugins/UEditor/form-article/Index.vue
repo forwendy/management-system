@@ -74,7 +74,7 @@ export default {
       this.dialogColor = true
     },
     insertImage(val){
-      const html = `<img src="${this.$res.prefix}${val}" width="100%">`
+      const html = `<img src="${this.$prefix}${val}" width="100%">`
       this.$refs.editor.editor.execCommand('inserthtml', html)
       this.dialogImage =  false
     },
@@ -85,7 +85,7 @@ export default {
       this.dialogVideo = true
     },
     insertVideo(val){
-      const html = `<video src="${this.$res.prefix}${val}" width="100%"></video>`
+      const html = `<video src="${this.$prefix}${val}" width="100%"></video>`
       this.$refs.editor.editor.execCommand('inserthtml', html)
       this.dialogVideo =  false
     }

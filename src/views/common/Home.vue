@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 import LeftMenu from '@/components/layout/LeftMenu.vue'
 import TopMenu from '@/components/layout/TopMenu.vue'
 import TabMenu from '@/components/layout/TabMenu.vue'

@@ -2,7 +2,7 @@
   <div class="main page-login">
     <img class="bg img-cover" src="../../assets/imgs/bg@2x.png" />
     <div class="left">
-      <img class="img-cover" :src="$res.prefix + brand.loginBg" :onerror="$errorImg" />
+      <img class="img-cover" :src="$prefix + brand.loginBg" :onerror="$errorImg" />
     </div>
     <div class="right">
       <div class="login-box">

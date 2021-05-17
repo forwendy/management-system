@@ -6,6 +6,34 @@
   "description": "https://github.com/forwendy/management-system.git",
   "glyphs": [
     {
+      "icon_id": "7684622",
+      "name": "excel",
+      "font_class": "xls",
+      "unicode": "e665",
+      "unicode_decimal": 58981
+    },
+    {
+      "icon_id": "19649324",
+      "name": "ppt",
+      "font_class": "ppt",
+      "unicode": "e643",
+      "unicode_decimal": 58947
+    },
+    {
+      "icon_id": "19649332",
+      "name": "pdf",
+      "font_class": "pdf",
+      "unicode": "e644",
+      "unicode_decimal": 58948
+    },
+    {
+      "icon_id": "19671110",
+      "name": "DOCX",
+      "font_class": "docx",
+      "unicode": "e7a7",
+      "unicode_decimal": 59303
+    },
+    {
       "icon_id": "7587933",
       "name": "菜单",
       "font_class": "menus",

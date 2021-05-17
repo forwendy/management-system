@@ -11,6 +11,10 @@ const state = {
     id: 'demo-detail',
     name: 'DemoDetail',
     path: '/demo-detail'
+  },{
+    id: 'demo-uploader',
+    name: 'DemoUploader',
+    path: '/demo-uploader'
   }],
   // tab菜单对象
   tabs: [],
