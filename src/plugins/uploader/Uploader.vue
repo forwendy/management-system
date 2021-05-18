@@ -32,7 +32,27 @@ export default {
       valueArr: []
     }
   },
+  created() {
+    this.setValue(this.value)
+  },
+  watch: {
+    value(value) {
+      this.setValue(value)
+    }
+  },
   computed: {
+    prefix() {
+      if (this.uploadType === 0) {
+        return this.$uploader.prefix
+      }
+      if (this.uploadType === 1) {
+        return this.$uploader.prefixQN
+      }
+    },
+    // 当前还可上传文件数量
+    currentMax() {
+      return this.max - this.list.length
+    },
     acceptFormat() {
       const type = this.type
       const arr = this.accept
@@ -40,24 +60,45 @@ export default {
       for (let i = 0; i < arr.length; i++) {
         if (arr[i] === 'pdf') {
           newArr.push('application/' + arr[i])
-        } else if (arr[i] === 'doc' || arr[i] === 'docx') {
+        } else if (arr[i] === 'doc') {
           newArr.push('application/msword')
-        } else if (arr[i] === 'ppt' || arr[i] === 'pptx') {
+        } else if (arr[i] === 'docx') {
+          newArr.push('application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+        } else if (arr[i] === 'ppt') {
           newArr.push('application/vnd.ms-powerpoint')
-        } else if (arr[i] === 'xls' || arr[i] === 'xlsx') {
+        } else if (arr[i] === 'pptx') {
+          newArr.push('application/vnd.openxmlformats-officedocument.presentationml.presentation')
+        } else if (arr[i] === 'xls') {
           newArr.push('application/vnd.ms-excel')
-        }else{
+        } else if (arr[i] === 'xlsx') {
+          newArr.push('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+        } else {
           newArr.push(type + '/' + arr[i])
         }
       }
       return newArr.join(',')
-    },
-    // 当前还可上传文件数量
-    currentMax() {
-      return this.max - this.list.length
     }
   },
   methods: {
+    // 输入 this.valueArr & this.list 处理
+    setValue(value) {
+      if (value && value !== '') {
+        if (this.list.length === 0) {
+          this.valueArr = value.split(',')
+          this.list = this.valueArr.map((el) => {
+            return {
+              uploadType: this.uploadType,
+              name: el,
+              src: this.prefix + el,
+              status: 4
+            }
+          })
+        }
+      } else {
+        this.valueArr = []
+        this.list = []
+      }
+    },
     // 上传前校验文件
     beforeUpload(e) {
       const input = e.srcElement ? e.srcElement : e.target
@@ -71,11 +112,13 @@ export default {
         if (this.checkFormat(files[i]) && this.checkSize(files[i])) {
           this.list.push({
             uploadType: this.uploadType, // 0 服务器 1 七牛云
+            name: files[i].name,
             src: files[i],
             status: 1
           })
         }
       }
+      input.value = ''
     },
     // 校验格式
     checkFormat(file) {
@@ -98,15 +141,9 @@ export default {
         return true
       }
     },
-    success(){
-
-    },
-    fail(){
-
-    },
-    view(){
-
-    },
+    success() {},
+    fail() {},
+    view() {},
     // 移除文件
     remove(index) {
       this.valueArr = this.valueArr.filter((el, i, arr) => {

@@ -93,11 +93,6 @@ export const groupBy = function(list, fn) {
   return groups
 }
 
-// 去除名称中的空格
-export const replaceTrim = function(val) {
-  return val.replace(/\s*/g, '')
-}
-
 export const hasButton = function(val) {
   const button = store.getters['user/button']
   const pass = val.split(',')
@@ -146,13 +141,22 @@ export const arrTrans = function(num, arr) {
   return newArr
 }
 
-
+// 去除名称中的空格
+export const replaceTrim = function(val) {
+  return val.replace(/\s*/g, '')
+}
 // 校验中文字符
-// encodeURIComponent 转义
-// decodeURIComponent 解码
-// window.btoa IE10+浏览器 
+// window.btoa IE10+浏览器
 export const formatChinese = function(str) {
-  return str.replace(/[\u4e00-\u9fa5]/g, (match)=>{
+  return str.replace(/[\u4e00-\u9fa5]/g, (match) => {
     return window.btoa(encodeURIComponent(match))
   })
+}
+// encodeURIComponent 转义
+export const encode = (data) => {
+  return window.btoa(encodeURIComponent(JSON.stringify(data)))
+}
+// decodeURIComponent 解码
+export const decode = (data) => {
+  return JSON.parse(decodeURIComponent(window.atob(data)))
 }

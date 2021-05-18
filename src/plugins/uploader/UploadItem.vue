@@ -5,9 +5,9 @@
     <!-- 上传失败 -->
     <a v-show="status === 3" class="status-label el-icon-error"></a>
     <!-- 遮罩 -->
-    <div class="upload-mask" :class="{ waiting: status < 3 }">
+    <div class="upload-mask" :class="{ waiting: status < 3 }" :title="decodeName(image)">
       <!-- 查看文件/图片 -->
-      <a v-show="status === 4" class="el-icon-zoom-in" title="查看文件"></a>
+      <a v-show="status === 4" class="el-icon-zoom-in" title="查看文件" target="_blank" :href="image"></a>
       <!-- 上传失败 重新上传 -->
       <a v-show="status === 3" class="el-icon-refresh-right" @click="reload" title="重新上传"></a>
       <!-- 删除文件 -->
@@ -20,10 +20,10 @@
     <!-- 图片展示 -->
     <img v-if="type === 'image'" class="img-cover" :src="image" />
     <template v-show="type === 'file'">
-      <img v-if="typeSuffix === 'pdf'" class="file" src="../uploader/images/pdf.png" />
-      <img v-if="typeSuffix === 'ppt'" class="file" src="../uploader/images/ppt.png" />
-      <img v-if="typeSuffix === 'xls'" class="file" src="../uploader/images/xls.png" />
-      <img v-if="typeSuffix === 'doc'" class="file" src="../uploader/images/doc.png" />
+      <img v-if="thumbnail === 'pdf'" class="file" src="../uploader/images/pdf.png" />
+      <img v-if="thumbnail === 'ppt'" class="file" src="../uploader/images/ppt.png" />
+      <img v-if="thumbnail === 'xls'" class="file" src="../uploader/images/xls.png" />
+      <img v-if="thumbnail === 'doc'" class="file" src="../uploader/images/doc.png" />
     </template>
   </div>
 </template>
@@ -50,42 +50,54 @@ export default {
     }
   },
   computed: {
+    prefix() {
+      if (this.uploadType === 0) {
+        return this.$uploader.prefix
+      }
+      if (this.uploadType === 1) {
+        return this.$uploader.prefixQN
+      }
+    },
     typeSuffix() {
+      const name = this.file.name
+      const lastComma = name.lastIndexOf('.')
+      return name.slice(lastComma, name.length)
+    },
+    thumbnail() {
       // 预览文件
-      const name = this.src.name.split('.')[1]
-      // iconfont
-      if ('xls'.indexOf(name) > -1) {
+      const suffix = this.typeSuffix
+      if (suffix === '.xls' || suffix === '.xlsx') {
         return 'xls'
       }
-      if ('docx'.indexOf(name) > -1) {
+      if (suffix === '.doc' || suffix === '.docx') {
         return 'doc'
       }
-      if ('ppt'.indexOf(name) > -1) {
+      if (suffix === '.ppt' || suffix === '.pptx') {
         return 'ppt'
       }
-      if ('pdf'.indexOf(name) > -1) {
+      if (suffix === '.pdf') {
         return 'pdf'
       }
     }
   },
   methods: {
     handle() {
-      // if (this.file.status < 4) {
-      //   // 未上传
-      //   this.preview(this.file.src)
-      // } else {
-      //   // 已上传
-      //   this.image = this.file.path
-      // }
-      // // 服务器上传
-      // if (this.uploadType === 0) {
-      //   this.upload(this.file.src)
-      // }
-      // // 七牛云上传
-      // if (this.uploadType === 1) {
-      //   this.uploadQN(this.file.src)
-      // }
       this.status = this.file.status
+      if (this.status < 4) {
+        // 未上传
+        this.preview(this.src)
+        // 服务器上传
+        if (this.uploadType === 0) {
+          this.upload(this.src)
+        }
+        // 七牛云上传
+        if (this.uploadType === 1) {
+          this.uploadQN(this.src)
+        }
+      } else {
+        // 已上传
+        this.image = this.src
+      }
     },
     // 移除
     remove() {
@@ -97,15 +109,16 @@ export default {
     },
     // 上传成功
     success(path) {
-      this.value = path
-      this.image = this.$prefix + path
-      this.$emit('success', { index: this.index, path: path })
       this.status = 4
+      this.value = path
+      this.image = this.prefix + path
+      this.$emit('success', { index: this.index, path})
     },
     fail(res) {
       this.status = 3
       this.$emit('fail', { index: this.index })
     },
+    // 预览
     preview(file) {
       if (this.type === 'image') {
         // 预览图片
@@ -137,9 +150,8 @@ export default {
     uploadQN(file) {
       this.status = 2
       const fileData = new FormData()
-      const key = new Date().getTime() + '&' + this.$utils.replaceTrim(file.name)
       fileData.append('file', file)
-      fileData.append('key', key)
+      fileData.append('key', this.formatName(file.name))
       this.$getQNToken(file).then((uptoken) => {
         fileData.append('token', uptoken)
         this.httpRequest({ data: fileData, uploadURL: this.uploadQNURL })
@@ -179,6 +191,26 @@ export default {
         }
       }
       xhr.send(data)
+    },
+    // 格式化文件名称
+    formatName(name) {
+      // 移除逗号 - 空格 - 转义
+      const lastComma = name.lastIndexOf('.')
+      name = name.replace(',', '').replace(/\s*/g, '')
+      name = name.slice(0, lastComma)
+      return new Date().getTime() + '/' + name + this.typeSuffix
+    },
+    // url解码
+    decodeName(url) {
+      if (this.status < 4) return ''
+      const name = url.split('/')[1]
+      if (!name) return ''
+      const lastComma = name.lastIndexOf('.')
+      if (!lastComma) return ''
+      const text = name.slice(0, lastComma)
+      if (!text) return ''
+      const suffix = name.slice(lastComma, name.length)
+      return text + suffix
     }
   },
   props: {
@@ -282,9 +314,17 @@ export default {
     justify-content: center;
     opacity: 0;
     a {
-      font-size: 20px;
+      font-size: 18px;
+      font-weight: 700;
+      width: 35px;
+      height: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
       cursor: pointer;
-      margin: 0 10px;
+      text-decoration: none;
+      color: #333333;
     }
     .loading-text {
       color: $--color-primary;
@@ -299,7 +339,8 @@ export default {
       background: rgba(250, 250, 250, 0.5);
       transition: all 500ms;
       a:hover {
-        color: $--color-primary;
+        background: rgba(255, 255, 255, 0.8);
+        color: #666666;
       }
     }
   }
