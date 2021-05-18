@@ -1,13 +1,13 @@
 <template>
-  <div class="upload-item" :style="{ width: width, height: height }" :class="{ fail: status === 3, success: status === 4 }">
+  <div class="upload-item" :style="{ width: width, height: height }" :class="{ fail: status === 3, success: status === 4 }" :title="decodeName(image)">
     <!-- 上传成功 -->
     <a v-show="status === 4" class="status-label el-icon-success"></a>
     <!-- 上传失败 -->
     <a v-show="status === 3" class="status-label el-icon-error"></a>
     <!-- 遮罩 -->
-    <div class="upload-mask" :class="{ waiting: status < 3 }" :title="decodeName(image)">
+    <div class="upload-mask" :class="{ waiting: status < 3 }">
       <!-- 查看文件/图片 -->
-      <a v-show="status === 4" class="el-icon-zoom-in" title="查看文件" target="_blank" :href="image"></a>
+      <a v-show="status === 4" class="el-icon-zoom-in" title="查看文件" target="_blank" :href="image" :download="decodeName(image)"></a>
       <!-- 上传失败 重新上传 -->
       <a v-show="status === 3" class="el-icon-refresh-right" @click="reload" title="重新上传"></a>
       <!-- 删除文件 -->
@@ -108,15 +108,15 @@ export default {
         .catch(() => {})
     },
     // 上传成功
-    success(path) {
+    success(src) {
       this.status = 4
-      this.value = path
-      this.image = this.prefix + path
-      this.$emit('success', { index: this.index, path})
+      this.value = src
+      this.image = this.prefix + src
+      this.$emit('success', { index: this.index, src, status: 4 })
     },
     fail(res) {
       this.status = 3
-      this.$emit('fail', { index: this.index })
+      this.$emit('fail', { index: this.index, status: 3 })
     },
     // 预览
     preview(file) {
@@ -195,22 +195,28 @@ export default {
     // 格式化文件名称
     formatName(name) {
       // 移除逗号 - 空格 - 转义
-      const lastComma = name.lastIndexOf('.')
       name = name.replace(',', '').replace(/\s*/g, '')
-      name = name.slice(0, lastComma)
-      return new Date().getTime() + '/' + name + this.typeSuffix
+      const lastComma = name.lastIndexOf('.')
+      const text = name.slice(0, lastComma)
+      return new Date().getTime() + '/' + this.encode(text) + this.typeSuffix
     },
     // url解码
     decodeName(url) {
       if (this.status < 4) return ''
-      const name = url.split('/')[1]
+      const name = url.split('://')[1].split('//')[1].split('/')[1]
       if (!name) return ''
       const lastComma = name.lastIndexOf('.')
       if (!lastComma) return ''
       const text = name.slice(0, lastComma)
       if (!text) return ''
       const suffix = name.slice(lastComma, name.length)
-      return text + suffix
+      return this.decode(text) + suffix
+    },
+    encode(data) {
+      return window.btoa(encodeURIComponent(JSON.stringify(data)))
+    },
+    decode(data) {
+      return JSON.parse(decodeURIComponent(window.atob(data)))
     }
   },
   props: {

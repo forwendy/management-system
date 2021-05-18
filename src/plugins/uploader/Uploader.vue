@@ -4,7 +4,7 @@
     <div class="upload-wrapper">
       <!-- 上传队列 -->
       <template v-for="(obj, index) in list">
-        <upload-item :index="index" :key="'uploader-' + index" :width="width" :height="height" :uploadType="obj.uploadType" :type="type" :file="obj" :src="obj.src" @success="success" @fail="fail" @view="view" @remove="remove" :disabled="disabled"> </upload-item>
+        <upload-item :index="index" :key="'uploader-' + index" :width="width" :height="height" :uploadType="obj.uploadType" :type="type" :file="obj" :src="obj.src" @success="success" @fail="fail" @remove="remove" :disabled="disabled"> </upload-item>
       </template>
       <!-- 占位符 -->
       <div class="upload-handle" v-show="currentMax && !disabled">
@@ -141,9 +141,28 @@ export default {
         return true
       }
     },
-    success() {},
-    fail() {},
-    view() {},
+    // 图片队列上状态
+    isUploaded() {
+      return this.list.every(el => {
+        if (el.status > 2) {
+          return false
+        } else {
+          return true
+        }
+      })
+    },
+    // 上传成功
+    success({ index, src, status }) {
+      this.valueArr[index] = src
+      this.list[index].src = this.prefix + src
+      this.list[index].status = status
+      this.uploaded = this.isUploaded()
+      this.changeValue()
+    },
+    // 上传失败
+    fail({ index, status }) {
+      this.list[index].status = status
+    },
     // 移除文件
     remove(index) {
       this.valueArr = this.valueArr.filter((el, i, arr) => {

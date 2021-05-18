@@ -18,8 +18,8 @@ export default {
   data() {
     return {
       form: {
-        imgs: '/1621305110045/JTIyNmM3MDQwNzYzNjM3ZjllMGE2MzVjMDlkZjQwMmMzODktJUU1JTg5JUFGJUU2JTlDJUFDLmolMjI=.jpg',
-        files: '/1621305678940/JTIyJUU2JTk2JUIwJUU1JUJCJUJBRE9DJUU2JTk2JTg3JUU2JUExJUEzLmQlMjI=.doc'
+        imgs: '/1621308344074/JTIyTXVsdGlhdmF0YXItV2VuZHklMjI=.png',
+        files: '/1621308494053/JTIyJUU2JTk2JUIwJUU1JUJCJUJBWExTJUU1JUI3JUE1JUU0JUJEJTlDJUU4JUExJUE4JTIy.xls'
       },
       rules: {}
     }
