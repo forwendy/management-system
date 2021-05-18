@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import api from '@/plugins/uploader/api.js'
 export default {
   created() {
     this.handle()
@@ -38,9 +39,7 @@ export default {
       value: '',
       image: '', // 当前上传图片地址
       status: 0, // 1等待上传 2上传中 3上传失败 4上传成功
-      percentComplete: 0, // 上传进度
-      uploadQNURL: this.$uploader.uploadQN,
-      uploadURL: this.$uploader.upload
+      percentComplete: 0 // 上传进度
     }
   },
   watch: {
@@ -50,6 +49,14 @@ export default {
     }
   },
   computed: {
+    uploadURL() {
+      if (this.uploadType === 0) {
+        return this.$uploader.upload + '?prePath=' + this.prePath
+      }
+      if (this.uploadType === 1) {
+        return this.$uploader.uploadQN
+      }
+    },
     prefix() {
       if (this.uploadType === 0) {
         return this.$uploader.prefix
@@ -114,7 +121,7 @@ export default {
       this.image = this.prefix + src
       this.$emit('success', { index: this.index, src, status: 4 })
     },
-    fail(res) {
+    fail() {
       this.status = 3
       this.$emit('fail', { index: this.index, status: 3 })
     },
@@ -143,8 +150,12 @@ export default {
       }
     },
     // 上传
-    upload() {
+    upload(file) {
       this.status = 2
+      const fileData = new FormData()
+      fileData.append('file', file)
+      fileData.append('filename', this.formatName(file.name))
+      this.httpRequest({ data: fileData })
     },
     // 七牛云上传
     uploadQN(file) {
@@ -152,13 +163,13 @@ export default {
       const fileData = new FormData()
       fileData.append('file', file)
       fileData.append('key', this.formatName(file.name))
-      this.$getQNToken(file).then((uptoken) => {
+      api.getQNToken().then((uptoken) => {
         fileData.append('token', uptoken)
-        this.httpRequest({ data: fileData, uploadURL: this.uploadQNURL })
+        this.httpRequest({ data: fileData })
       })
     },
     // 原生上传方法
-    httpRequest({ data, uploadURL }) {
+    httpRequest({ data }) {
       let xhr = {}
       if (window.XMLHttpRequest) {
         xhr = new XMLHttpRequest()
@@ -166,7 +177,7 @@ export default {
         xhr = new ActiveXObject('Microsoft.XMLHTTP')
       }
       // 设置url
-      xhr.open('POST', uploadURL, true)
+      xhr.open('POST', this.uploadURL, true)
       // 上传进度读取
       xhr.upload.addEventListener(
         'progress',
@@ -186,10 +197,19 @@ export default {
           } else {
             // 上传失败
             const res = JSON.parse(xhr.responseText)
-            this.fail(res)
+            this.fail()
           }
         }
       }
+      // 上传进度读取
+      xhr.upload.addEventListener(
+        'error',
+        (evt) => {
+          console.error(evt)
+          this.fail()
+        },
+        false
+      )
       xhr.send(data)
     },
     // 格式化文件名称
@@ -203,7 +223,7 @@ export default {
     // url解码
     decodeName(url) {
       if (this.status < 4) return ''
-      const name = url.split('://')[1].split('//')[1].split('/')[1]
+      const name = url.split('://')[1].split('/')[1].split('/')[1]
       if (!name) return ''
       const lastComma = name.lastIndexOf('.')
       if (!lastComma) return ''
@@ -255,6 +275,12 @@ export default {
       type: String,
       default() {
         return '120px'
+      }
+    },
+    prePath: {
+      type: String,
+      default() {
+        return ''
       }
     },
     disabled: Boolean // 禁用

@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import commonApi from '@/api/common.js'
+import commonApi from '@/plugins/uploader/api.js'
 import tinymce from 'tinymce/tinymce'
 import Editor from '@tinymce/tinymce-vue'
 import 'tinymce/themes/silver'

@@ -13,6 +13,11 @@ let route = [
     path: '/demo/uploader',
     name: '模板-文件上传',
     component: (resolve) => require(['@/views/demo/FormUploader.vue'], resolve)
+  },
+  {
+    path: '/demo/rich-text',
+    name: '模板-富文本',
+    component: (resolve) => require(['@/views/demo/FormRichText.vue'], resolve)
   }
 ]
 

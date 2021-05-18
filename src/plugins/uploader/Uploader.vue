@@ -4,7 +4,7 @@
     <div class="upload-wrapper">
       <!-- 上传队列 -->
       <template v-for="(obj, index) in list">
-        <upload-item :index="index" :key="'uploader-' + index" :width="width" :height="height" :uploadType="obj.uploadType" :type="type" :file="obj" :src="obj.src" @success="success" @fail="fail" @remove="remove" :disabled="disabled"> </upload-item>
+        <upload-item :index="index" :key="'uploader-' + index" :width="width" :height="height" :prePath="prePath" :uploadType="obj.uploadType" :type="type" :file="obj" :src="obj.src" @success="success" @fail="fail" @remove="remove" :disabled="disabled"> </upload-item>
       </template>
       <!-- 占位符 -->
       <div class="upload-handle" v-show="currentMax && !disabled">
@@ -234,6 +234,12 @@ export default {
       type: String,
       default() {
         return '120px'
+      }
+    },
+    prePath:  {
+      type: String,
+      default() {
+        return ''
       }
     },
     disabled: Boolean // 禁用
