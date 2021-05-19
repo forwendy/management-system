@@ -4,7 +4,7 @@
     <div class="upload-wrapper">
       <!-- 上传队列 -->
       <template v-for="(obj, index) in list">
-        <upload-item :index="index" :key="'uploader-' + index" :width="width" :height="height" :prePath="prePath" :uploadType="obj.uploadType" :type="type" :file="obj" :src="obj.src" @success="success" @fail="fail" @remove="remove" :disabled="disabled"> </upload-item>
+        <upload-item :index="index" :key="'uploader-' + index" :width="width" :height="height" :prePath="prePath" :uploadType="obj.uploadType" :type="type" :file="obj" :src="obj.src" @view="view" @success="success" @fail="fail" @remove="remove" :disabled="disabled"> </upload-item>
       </template>
       <!-- 占位符 -->
       <div class="upload-handle" v-show="currentMax && !disabled">
@@ -15,21 +15,28 @@
         </slot>
       </div>
     </div>
+    <!-- 查看图片 -->
+    <el-dialog title="查看图片" :visible.sync="dialogVisible" width="60vw" height="60vh" append-to-body>
+      <ImageView class="images" :prefix="prefix" :type="type" :src="value" width="50vw" height="50vh" multiple></ImageView>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import UploadItem from './UploadItem'
+import ImageView from '@/components/ui/ImageView.vue'
 export default {
   name: 'Uploader',
   components: {
-    UploadItem
+    UploadItem,
+    ImageView
   },
   data() {
     return {
       uploaded: true, // 图片队列上传完毕
       list: [], // 文件列表
-      valueArr: []
+      valueArr: [],
+      dialogVisible: false
     }
   },
   created() {
@@ -187,6 +194,9 @@ export default {
       })
       this.changeValue()
     },
+    view(){
+      this.dialogVisible = true
+    },
     // 输出
     changeValue() {
       this.$emit('input', this.valueArr.join(','))
@@ -266,6 +276,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.images{
+  width: 50vw;
+  height: 50vh;
+  margin: 0 auto;
+}
 .upload-wrapper {
   display: flex;
   flex-wrap: wrap;

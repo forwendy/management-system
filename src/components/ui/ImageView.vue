@@ -3,22 +3,32 @@
     <template v-if="multiple">
       <el-carousel class="carousel" :height="height">
         <el-carousel-item v-for="src in srcList" :key="src">
-          <el-image class="image" :fit="fit" :src="src" :preview-src-list="srcList">
-            <!-- 占位图 -->
-            <img slot="placeholder" class="img-cover" :src="errorImg" />
-            <!-- 加载失败 -->
-            <img slot="error" class="img-cover" :src="errorImg" />
-          </el-image>
+          <template v-if="type === 'image'">
+            <el-image class="image" :fit="fit" :src="src" :preview-src-list="srcList" :z-index="3000">
+              <!-- 占位图 -->
+              <img slot="placeholder" class="img-cover" :src="errorImg" />
+              <!-- 加载失败 -->
+              <img slot="error" class="img-cover" :src="errorImg" />
+            </el-image>
+          </template>
+          <template v-if="type === 'video'">
+            <video class="image" :src="src" controls></video>
+          </template>
         </el-carousel-item>
       </el-carousel>
     </template>
     <template v-else>
-      <el-image class="image" :fit="fit" :src="prefix + src" :preview-src-list="srcList">
-        <!-- 占位图 -->
-        <img slot="placeholder" class="img-cover" :src="errorImg" />
-        <!-- 加载失败 -->
-        <img slot="error" class="img-cover" :src="errorImg" />
-      </el-image>
+      <template v-if="type === 'image'">
+        <el-image class="image" :fit="fit" :src="prefix + src" :preview-src-list="srcList" :z-index="3000">
+          <!-- 占位图 -->
+          <img slot="placeholder" class="img-cover" :src="errorImg" />
+          <!-- 加载失败 -->
+          <img slot="error" class="img-cover" :src="errorImg" />
+        </el-image>
+      </template>
+      <template v-if="type === 'video'">
+        <video class="image" :src="src" controls></video>
+      </template>
     </template>
   </div>
 </template>
@@ -51,7 +61,14 @@ export default {
       }
     },
     width: String,
-    height: String
+    height: String,
+    type: {
+      // 上传文件类型 [image, video, file, audio]
+      type: String,
+      default: function () {
+        return 'image'
+      }
+    }
   },
   computed: {
     srcList() {

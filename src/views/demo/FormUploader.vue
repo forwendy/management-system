@@ -7,6 +7,9 @@
     <el-form-item label="文件上传" prop="filesQN">
       <Uploader v-model="form.filesQN" :uploadType="1" type="file" :max="3" :accept="['ppt', 'pptx', 'doc', 'docx', 'xls', 'xlsx', 'pdf']" :disabled="true"></Uploader>
     </el-form-item>
+    <el-form-item label="压缩文件上传" prop="compressFile">
+      <Uploader v-model="form.compressFile" :uploadType="1" type="file" :accept="['zip', 'rar']"></Uploader>
+    </el-form-item>
     <el-form-item label="视频文件上传" prop="mp4">
       <Uploader v-model="form.mp4QN" :uploadType="1" type="video"></Uploader>
     </el-form-item>
@@ -22,10 +25,6 @@
     </el-form-item>
     <el-form-item label="视频文件上传" prop="mp4">
       <Uploader v-model="form.mp4" :uploadType="0" prePath="user" type="video" :max="3"></Uploader>
-    </el-form-item>
-    <h2>以下暂未兼容</h2>
-    <el-form-item label="音频文件上传" prop="mp3">
-      <Uploader v-model="form.mp3" :uploadType="0" prePath="user" type="audio" :max="3"></Uploader>
     </el-form-item>
     <el-form-item class="but-group">
       <el-button type="primary" @click="save('edit')">确定</el-button>

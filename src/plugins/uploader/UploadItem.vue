@@ -164,7 +164,15 @@ export default {
     },
     // 查看
     view() {
-      window.location.href = this.prefix + this.src
+      if (this.type === 'file') {
+        window.location.href = this.prefix + this.src
+      }
+      if (this.type === 'image') {
+        this.$emit('view')
+      }
+      if (this.type === 'video') {
+        this.$emit('view')
+      }
     },
     // 预览
     preview(file) {
