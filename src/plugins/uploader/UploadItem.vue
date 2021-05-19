@@ -24,6 +24,7 @@
       <img v-if="thumbnail === 'ppt'" class="file" src="../uploader/images/ppt.png" />
       <img v-if="thumbnail === 'xls'" class="file" src="../uploader/images/xls.png" />
       <img v-if="thumbnail === 'doc'" class="file" src="../uploader/images/doc.png" />
+      <img v-if="thumbnail === 'zip'" class="file" src="../uploader/images/zip.png" />
     </template>
   </div>
 </template>
@@ -81,6 +82,9 @@ export default {
       }
       if (suffix === '.ppt' || suffix === '.pptx') {
         return 'ppt'
+      }
+      if (suffix === '.rar' || suffix === '.zip') {
+        return 'zip'
       }
       if (suffix === '.pdf') {
         return 'pdf'

@@ -27,7 +27,7 @@ export default {
   },
   data() {
     return {
-      uploaded: false, // 图片队列上传完毕
+      uploaded: true, // 图片队列上传完毕
       list: [], // 文件列表
       valueArr: []
     }
@@ -65,16 +65,23 @@ export default {
         } else if (arr[i] === 'docx') {
           newArr.push('application/vnd.openxmlformats-officedocument.wordprocessingml.document')
         } else if (arr[i] === 'ppt') {
+          newArr.push('.ppt')
           newArr.push('application/vnd.ms-powerpoint')
         } else if (arr[i] === 'pptx') {
+          newArr.push('.pptx')
           newArr.push('application/vnd.openxmlformats-officedocument.presentationml.presentation')
         } else if (arr[i] === 'xls') {
           newArr.push('application/vnd.ms-excel')
         } else if (arr[i] === 'xlsx') {
           newArr.push('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+        } else if (arr[i] === 'zip') {
+          newArr.push('application/zip')
+        } else if (arr[i] === 'rar') {
+          newArr.push('application/x-rar-compressed')
         } else {
           newArr.push(type + '/' + arr[i])
         }
+        newArr.push('.' + arr[i])
       }
       return newArr.join(',')
     }
@@ -143,11 +150,11 @@ export default {
     },
     // 图片队列上状态
     isUploaded() {
-      return this.list.every(el => {
+      return this.list.every((el) => {
         if (el.status > 2) {
-          return false
-        } else {
           return true
+        } else {
+          return false
         }
       })
     },
@@ -158,10 +165,14 @@ export default {
       this.list[index].status = status
       this.uploaded = this.isUploaded()
       this.changeValue()
+      if (this.uploaded) {
+        this.$emit('success')
+      }
     },
     // 上传失败
     fail({ index, status }) {
       this.list[index].status = status
+      this.$emit('fail', this.list[index])
     },
     // 移除文件
     remove(index) {
@@ -176,6 +187,11 @@ export default {
     // 输出
     changeValue() {
       this.$emit('input', this.valueArr.join(','))
+      this.$emit('change', {
+        uploaded: this.uploaded, // 图片队列上传完毕
+        list: this.list, // 文件列表
+        valueArr: this.valueArr // 文件路径数组
+      })
     }
   },
   props: {
@@ -187,7 +203,7 @@ export default {
       }
     },
     type: {
-      // 上传文件类型 [image, video, file]
+      // 上传文件类型 [image, video, file, audio]
       type: String,
       default: function () {
         return 'image'
@@ -219,6 +235,7 @@ export default {
           // video : ['flv', 'mpg', 'mpeg', 'avi', 'wmv', 'mov', 'asf', 'rm', 'rmvb', 'mkv', 'm4v', 'mp4'],
           // 考虑视频播放兼容性
           video: ['mp4', 'mpg', 'mpeg'],
+          audio: ['mp3'],
           file: ['ppt', 'pptx', 'doc', 'docx', 'xls', 'xlsx', 'pdf']
         }
         return accept[this.type]
@@ -236,7 +253,7 @@ export default {
         return '120px'
       }
     },
-    prePath:  {
+    prePath: {
       type: String,
       default() {
         return ''
