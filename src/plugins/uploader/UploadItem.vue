@@ -115,11 +115,16 @@ export default {
         .catch(() => {})
     },
     // 上传成功
-    success(src) {
+    success(data) {
       this.status = 4
-      this.value = src
-      this.image = this.prefix + src
-      this.$emit('success', { index: this.index, src, status: 4 })
+      if (this.uploadType === 0) {
+        this.value = data.data
+      }
+      if (this.uploadType === 1) {
+        this.value = `/${data.key}`
+      }
+      this.image = this.prefix + this.value
+      this.$emit('success', { index: this.index, src: this.value, status: 4 })
     },
     fail() {
       this.status = 3
@@ -193,7 +198,7 @@ export default {
           if (xhr.status === 200 && xhr.responseText !== '') {
             // 上传成功
             const data = JSON.parse(xhr.responseText)
-            this.success(`/${data.key}`)
+            this.success(data)
           } else {
             // 上传失败
             const res = JSON.parse(xhr.responseText)

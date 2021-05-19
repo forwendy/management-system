@@ -33,7 +33,7 @@ export default {
     })
   },
   // 服务端上传
-  serverUpload() {
+  serverUpload({ file, prePath }) {
     const instance = axios.create({
       timeout: 3000,
       mimeType: 'multipart/form-data',

@@ -28,7 +28,7 @@ export default {
       form: {
         imgsQN: '/1621308344074/JTIyTXVsdGlhdmF0YXItV2VuZHklMjI=.png',
         filesQN: '/1621308494053/JTIyJUU2JTk2JUIwJUU1JUJCJUJBWExTJUU1JUI3JUE1JUU0JUJEJTlDJUU4JUExJUE4JTIy.xls',
-        imgs: '',
+        imgs: '/files/user/84fc7b78-6e7e-414e-8511-da4114122ad1.jpg,/files/user/2294b064-9259-4b63-bd9f-717badc8c8a2.jpg',
         files: ''
       },
       rules: {}
