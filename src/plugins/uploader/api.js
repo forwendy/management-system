@@ -10,11 +10,11 @@ export default {
       }
     })
     const formData = new FormData()
-    const { uptoken } = await getQNToken()
+    const uptoken = await this.getQNToken()
     formData.append('token', uptoken)
     formData.append('file', file)
-    formData.append('key', formatName(file.name))
-    instance.post(process.env.VUE_APP_QI_NIU_UP, formData).then((res) => {
+    formData.append('key', this.formatName(file.name))
+    return instance.post(process.env.VUE_APP_QI_NIU_UP, formData).then((res) => {
       if (res.status === 200) {
         return res.data
       } else {
@@ -44,7 +44,7 @@ export default {
     const formData = new FormData()
     formData.append('file', file)
     formData.append('filename', formatName(file.name))
-    instance.post(process.env.VUE_APP_UPLOAD + `?prePath=${prePath}`, formData).then((res) => {
+    return instance.post(process.env.VUE_APP_UPLOAD + `?prePath=${prePath}`, formData).then((res) => {
       if (res.status === 200) {
         return res.data
       } else {
@@ -71,7 +71,7 @@ export default {
     const lastComma = name.lastIndexOf('.')
     const text = name.slice(0, lastComma)
     const suffix = name.slice(lastComma, name.length)
-    return new Date().getTime() + '/' + encode(text) + suffix
+    return new Date().getTime() + '/' + text + suffix
   }
 }
 

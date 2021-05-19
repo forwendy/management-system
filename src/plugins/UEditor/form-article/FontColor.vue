@@ -5,7 +5,7 @@
     </el-form-item>
     <el-form-item label="快捷选择">
       <div class="colorGroup">
-        <span v-for="obj in colorArr" :style="{background: '#'+obj}" @click="setColor('#'+obj)">{{obj}}</span>
+        <span v-for="obj in colorArr" :key="obj" :style="{ background: '#' + obj }" @click="setColor('#' + obj)">{{ obj }}</span>
       </div>
     </el-form-item>
   </el-form>
@@ -13,26 +13,26 @@
 
 <script>
 export default {
-  data(){
+  data() {
     return {
       color: '#000',
-      colorArr: ['c7000b','fdd000','6edd38','00a0da','143fab','ffffff','dcdcdc','c0c0c0','8a8a8a','707171','505050','2d2d2d']
+      colorArr: ['c7000b', 'fdd000', '6edd38', '00a0da', '143fab', 'ffffff', 'dcdcdc', 'c0c0c0', '8a8a8a', '707171', '505050', '2d2d2d']
     }
   },
   methods: {
-    setColor(val){
-      this.$emit('submit',val)
+    setColor(val) {
+      this.$emit('submit', val)
     }
   }
 }
 </script>
 
 <style scoped>
-.colorGroup{
+.colorGroup {
   display: flex;
   flex-wrap: wrap;
 }
-.colorGroup span{
+.colorGroup span {
   width: 80px;
   height: 36px;
   line-height: 36px;

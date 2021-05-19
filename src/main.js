@@ -9,6 +9,9 @@ Vue.use(ElementUI)
 // 引入上传组件
 import Uploader from '@/plugins/uploader/index.js'
 Vue.use(Uploader)
+// 引入UEditor
+import '@/plugins/UEditor/config.js'
+
 Vue.config.productionTip = false
 
 // Vue指令

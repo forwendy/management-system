@@ -1,7 +1,10 @@
 <template>
   <el-form class="edit-form" :model="form" :rules="rules" ref="edit" label-width="120px" size="medium">
-    <el-form-item label="富文本" prop="html">
-      <TinymceEditor v-model="form.html"></TinymceEditor>
+    <el-form-item label="Tinymce富文本" prop="html">
+      <TinymceEditor v-model="form.html" placeholder="请输入内容"></TinymceEditor>
+    </el-form-item>
+    <el-form-item label="UEditor富文本" prop="html">
+      <UEditor v-model="form.html" placeholder="请输入内容"></UEditor>
     </el-form-item>
     <el-form-item class="but-group">
       <el-button type="primary" @click="save('edit')">确定</el-button>
@@ -12,9 +15,11 @@
 
 <script>
 import TinymceEditor from '@/plugins/tinymce/TinymceEditor.vue'
+import UEditor from '@/plugins/UEditor/form-article/Index.vue'
 export default {
   components: {
-    TinymceEditor
+    TinymceEditor,
+    UEditor
   },
   data() {
     return {

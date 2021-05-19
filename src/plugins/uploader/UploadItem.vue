@@ -7,7 +7,7 @@
     <!-- 遮罩 -->
     <div class="upload-mask" :class="{ waiting: status < 3 }">
       <!-- 查看文件/图片 -->
-      <a v-show="status === 4" class="el-icon-zoom-in" title="查看文件" @click="view"></a>
+      <a v-show="status > 3" class="el-icon-zoom-in" title="查看文件" @click="view"></a>
       <!-- 上传失败 重新上传 -->
       <a v-show="status === 3" class="el-icon-refresh-right" @click="reload" title="重新上传"></a>
       <!-- 删除文件 -->
@@ -29,8 +29,8 @@
     <img v-if="type === 'image'" class="img-cover" :src="image" />
     <!-- 视频展示 -->
     <template v-if="type === 'video'">
-      <img v-if="status === 4 && uploadType === 1" class="img-cover" :src="video" />
-      <video v-if="status === 4 && uploadType === 0" class="img-cover" :src="video" :width="this.width"></video>
+      <img v-if="status > 3 && uploadType === 1" class="img-cover" :src="video" />
+      <video v-if="status > 3 && uploadType === 0" class="img-cover" :src="video" :width="this.width"></video>
       <img v-if="status < 3" class="file" src="../uploader/images/mp4.png" />
     </template>
   </div>
@@ -45,7 +45,7 @@ export default {
   data() {
     return {
       value: '', // 当前文件地址
-      status: 0, // 1等待上传 2上传中 3上传失败 4上传成功
+      status: 0, // 1等待上传 2上传中 3上传失败 4上传成功 5赋值文件
       percentComplete: 0 // 上传进度
     }
   },
@@ -60,7 +60,7 @@ export default {
       if (this.uploadType === 0) {
         return this.prefix + this.value
       } else {
-        if (this.status === 4) {
+        if (this.status > 3) {
           return this.prefix + this.value + '?imageView2/1/w/' + this.width + '/h/' + this.height
         } else {
           return this.value
@@ -71,13 +71,14 @@ export default {
       if (this.uploadType === 0) {
         return this.prefix + this.value
       } else {
-        if (this.status === 4) {
+        if (this.status > 3) {
           return this.prefix + this.value + '?vframe/jpg/offset/0/w/' + this.width
         } else {
           return this.value
         }
       }
     },
+    // 上传地址
     uploadURL() {
       if (this.uploadType === 0) {
         return this.$uploader.upload + '?prePath=' + this.prePath
@@ -86,6 +87,7 @@ export default {
         return this.$uploader.uploadQN
       }
     },
+    // 访问前缀
     prefix() {
       if (this.uploadType === 0) {
         return this.$uploader.prefix
@@ -94,11 +96,13 @@ export default {
         return this.$uploader.prefixQN
       }
     },
+    // 文件尾缀
     typeSuffix() {
       const name = this.file.name
       const lastComma = name.lastIndexOf('.')
       return name.slice(lastComma, name.length)
     },
+    // 缩略图类型判断
     thumbnail() {
       // 预览文件
       const suffix = this.typeSuffix
@@ -118,6 +122,7 @@ export default {
         return 'pdf'
       }
     },
+    // 元素展示宽高
     showWH() {
       return { width: this.width + 'px', height: this.height + 'px' }
     }
@@ -158,6 +163,7 @@ export default {
       }
       this.$emit('success', { index: this.index, src: this.value, status: 4 })
     },
+    // 上传失败
     fail() {
       this.status = 3
       this.$emit('fail', { index: this.index, status: 3 })
@@ -198,7 +204,7 @@ export default {
         this.uploadQN(this.src)
       }
     },
-    // 上传
+    // 服务器上传
     upload(file) {
       this.status = 2
       const fileData = new FormData()
@@ -390,6 +396,7 @@ export default {
       color: #333333;
     }
     .loading-text {
+      width: 50px;
       color: $--color-primary;
     }
     &.waiting {

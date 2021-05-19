@@ -107,7 +107,7 @@ export default {
               uploadType: this.uploadType,
               name: el,
               src: el,
-              status: 4
+              status: 5
             }
           })
         }
