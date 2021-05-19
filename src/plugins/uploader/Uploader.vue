@@ -16,19 +16,23 @@
       </div>
     </div>
     <!-- 查看图片 -->
+    <ImageViewer v-if="showViewer" :on-close="closeViewer" :url-list="urlList" />
+    <!-- 查看视频 -->
     <el-dialog title="查看图片" :visible.sync="dialogVisible" width="60vw" height="60vh" append-to-body>
-      <ImageView class="images" :prefix="prefix" :type="type" :src="value" width="50vw" height="50vh" multiple></ImageView>
+      <ImageView v-if="dialogVisible" :prefix="prefix" :type="type" :src="videoStrArr" width="50vw" height="50vh" multiple></ImageView>
     </el-dialog>
   </div>
 </template>
 
 <script>
-import UploadItem from './UploadItem'
+import ImageViewer from 'element-ui/packages/image/src/image-viewer'
 import ImageView from '@/components/ui/ImageView.vue'
+import UploadItem from './UploadItem'
 export default {
   name: 'Uploader',
   components: {
     UploadItem,
+    ImageViewer,
     ImageView
   },
   data() {
@@ -36,7 +40,9 @@ export default {
       uploaded: true, // 图片队列上传完毕
       list: [], // 文件列表
       valueArr: [],
-      dialogVisible: false
+      showViewer: false,
+      dialogVisible: false,
+      showActive: 0
     }
   },
   created() {
@@ -48,6 +54,22 @@ export default {
     }
   },
   computed: {
+    // 查看大图 url
+    urlList(){
+      let arr = [].concat(this.valueArr)
+      const first = arr.splice(this.showActive, 1)[0]
+      arr = [first].concat(arr)
+      return arr.map(el=>{
+        return this.prefix + el
+      })
+    },
+    // 查看视频
+    videoStrArr(){
+      let arr = [].concat(this.valueArr)
+      const first = arr.splice(this.showActive, 1)[0]
+      arr = [first].concat(arr)
+      return arr.join(',')
+    },
     prefix() {
       if (this.uploadType === 0) {
         return this.$uploader.prefix
@@ -97,6 +119,18 @@ export default {
     }
   },
   methods: {
+    closeViewer(){
+      this.showViewer = false
+    },
+    view(index) {
+      this.showActive = index
+      if (this.type === 'image') {
+        this.showViewer = true
+      }
+      if (this.type === 'video') {
+        this.dialogVisible = true
+      }
+    },
     // 输入 this.valueArr & this.list 处理
     setValue(value) {
       if (value && value !== '') {
@@ -194,9 +228,6 @@ export default {
       })
       this.changeValue()
     },
-    view(){
-      this.dialogVisible = true
-    },
     // 输出
     changeValue() {
       this.$emit('input', this.valueArr.join(','))
@@ -276,11 +307,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.images{
-  width: 50vw;
-  height: 50vh;
-  margin: 0 auto;
-}
 .upload-wrapper {
   display: flex;
   flex-wrap: wrap;

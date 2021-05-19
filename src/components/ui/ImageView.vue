@@ -1,10 +1,10 @@
 <template>
   <div class="ui-image-view">
-    <template v-if="multiple">
-      <el-carousel class="carousel" :height="height">
+    <template v-if="srcList.length > 1">
+      <el-carousel class="carousel" :style="showWH" :height="height">
         <el-carousel-item v-for="src in srcList" :key="src">
           <template v-if="type === 'image'">
-            <el-image class="image" :fit="fit" :src="src" :preview-src-list="srcList" :z-index="3000">
+            <el-image :style="showWH" :fit="fit" :src="src" :preview-src-list="srcList" :z-index="3000">
               <!-- 占位图 -->
               <img slot="placeholder" class="img-cover" :src="errorImg" />
               <!-- 加载失败 -->
@@ -12,14 +12,14 @@
             </el-image>
           </template>
           <template v-if="type === 'video'">
-            <video class="image" :src="src" controls></video>
+            <video :style="showWH" :src="src" controls></video>
           </template>
         </el-carousel-item>
       </el-carousel>
     </template>
     <template v-else>
       <template v-if="type === 'image'">
-        <el-image class="image" :fit="fit" :src="prefix + src" :preview-src-list="srcList" :z-index="3000">
+        <el-image :style="showWH" :fit="fit" :src="prefix + src" :preview-src-list="srcList" :z-index="3000">
           <!-- 占位图 -->
           <img slot="placeholder" class="img-cover" :src="errorImg" />
           <!-- 加载失败 -->
@@ -27,7 +27,7 @@
         </el-image>
       </template>
       <template v-if="type === 'video'">
-        <video class="image" :src="src" controls></video>
+        <video :style="showWH" :src="prefix + src" controls></video>
       </template>
     </template>
   </div>
@@ -44,13 +44,6 @@ export default {
       type: String,
       default() {
         return 'cover'
-      }
-    },
-    // 多图片查看
-    multiple: {
-      type: Boolean,
-      default() {
-        return false
       }
     },
     // 头像默认图
@@ -78,6 +71,10 @@ export default {
     },
     errorImg() {
       return this.avatar ? avatar : defaultImg
+    },
+    // 元素展示宽高
+    showWH() {
+      return { width: this.width, height: this.height }
     }
   }
 }
@@ -88,6 +85,7 @@ export default {
   .carousel {
     width: 100%;
     height: 100%;
+    margin: 0 auto;
     .el-carousel__arrow {
       width: 30px;
       height: 30px;
@@ -100,10 +98,6 @@ export default {
       height: 6px;
       border-radius: 50%;
     }
-  }
-  .image {
-    width: 100%;
-    height: 100%;
   }
 }
 </style>

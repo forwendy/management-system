@@ -4,7 +4,7 @@
       <el-table height="100%" header-cell-class-name="header-th" :data="page.data" style="width: 100%" highlight-current-row>
         <el-table-column align="center" label="图片轮播">
           <template slot-scope="scope">
-            <ImageView class="images" :prefix="$prefix" :src="scope.row.imgs" width="300px" height="200px" multiple></ImageView>
+            <ImageView :prefix="$prefix" :src="scope.row.imgs" width="300px" height="200px"></ImageView>
           </template>
         </el-table-column>
         <el-table-column align="center" label="操作">
@@ -44,11 +44,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.images{
-  width: 300px;
-  height: 200px;
-  margin: 0 auto;
-}
-</style>

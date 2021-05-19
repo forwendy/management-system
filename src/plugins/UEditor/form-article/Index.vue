@@ -33,6 +33,7 @@ export default {
       editorOpt: {
         toolbars: [['fontfamily', 'fontsize', 'bold', 'italic', '|', 'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'font-color', 'upload-image', 'upload-video']],
         initialFrameHeight: 400,
+        initialFrameWidth: '100%',
         elementPathEnabled: false, // 是否启用元素路径
         enableContextMenu: false, // 打开右键菜单功能
         autoHeightEnabled: false, // 是否自动长高

@@ -174,10 +174,10 @@ export default {
         window.location.href = this.prefix + this.src
       }
       if (this.type === 'image') {
-        this.$emit('view')
+        this.$emit('view', this.index)
       }
       if (this.type === 'video') {
-        this.$emit('view')
+        this.$emit('view', this.index)
       }
     },
     // 预览
