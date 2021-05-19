@@ -1,5 +1,5 @@
 <template>
-  <div class="upload-item" :style="{ width: width, height: height }" :class="{ fail: status === 3, success: status === 4 }" :title="decodeName(image)">
+  <div class="upload-item" :style="showWH" :class="{ fail: status === 3, success: status === 4 }">
     <!-- 上传成功 -->
     <a v-show="status === 4" class="status-label el-icon-success"></a>
     <!-- 上传失败 -->
@@ -7,7 +7,7 @@
     <!-- 遮罩 -->
     <div class="upload-mask" :class="{ waiting: status < 3 }">
       <!-- 查看文件/图片 -->
-      <a v-show="status === 4" class="el-icon-zoom-in" title="查看文件" target="_blank" :href="image" :download="decodeName(image)"></a>
+      <a v-show="status === 4" class="el-icon-zoom-in" title="查看文件" @click="view"></a>
       <!-- 上传失败 重新上传 -->
       <a v-show="status === 3" class="el-icon-refresh-right" @click="reload" title="重新上传"></a>
       <!-- 删除文件 -->
@@ -17,14 +17,21 @@
       <!-- 等待上传 -->
       <a v-show="status === 1" class="el-icon-loading"></a>
     </div>
-    <!-- 图片展示 -->
-    <img v-if="type === 'image'" class="img-cover" :src="image" />
+    <!-- 文件展示 -->
     <template v-show="type === 'file'">
       <img v-if="thumbnail === 'pdf'" class="file" src="../uploader/images/pdf.png" />
       <img v-if="thumbnail === 'ppt'" class="file" src="../uploader/images/ppt.png" />
       <img v-if="thumbnail === 'xls'" class="file" src="../uploader/images/xls.png" />
       <img v-if="thumbnail === 'doc'" class="file" src="../uploader/images/doc.png" />
       <img v-if="thumbnail === 'zip'" class="file" src="../uploader/images/zip.png" />
+    </template>
+    <!-- 图片展示 -->
+    <img v-if="type === 'image'" class="img-cover" :src="image" />
+    <!-- 视频展示 -->
+    <template v-if="type === 'video'">
+      <img v-if="status === 4 && uploadType === 1" class="img-cover" :src="video" />
+      <video v-if="status === 4 && uploadType === 0" class="img-cover" :src="video" :width="this.width"></video>
+      <img v-if="status < 3" class="file" src="../uploader/images/mp4.png" />
     </template>
   </div>
 </template>
@@ -37,8 +44,7 @@ export default {
   },
   data() {
     return {
-      value: '',
-      image: '', // 当前上传图片地址
+      value: '', // 当前文件地址
       status: 0, // 1等待上传 2上传中 3上传失败 4上传成功
       percentComplete: 0 // 上传进度
     }
@@ -50,6 +56,28 @@ export default {
     }
   },
   computed: {
+    image() {
+      if (this.uploadType === 0) {
+        return this.prefix + this.value
+      } else {
+        if (this.status === 4) {
+          return this.prefix + this.value + '?imageView2/1/w/' + this.width + '/h/' + this.height
+        } else {
+          return this.value
+        }
+      }
+    },
+    video() {
+      if (this.uploadType === 0) {
+        return this.prefix + this.value
+      } else {
+        if (this.status === 4) {
+          return this.prefix + this.value + '?vframe/jpg/offset/0/w/' + this.width
+        } else {
+          return this.value
+        }
+      }
+    },
     uploadURL() {
       if (this.uploadType === 0) {
         return this.$uploader.upload + '?prePath=' + this.prePath
@@ -89,6 +117,9 @@ export default {
       if (suffix === '.pdf') {
         return 'pdf'
       }
+    },
+    showWH() {
+      return { width: this.width + 'px', height: this.height + 'px' }
     }
   },
   methods: {
@@ -105,10 +136,8 @@ export default {
         if (this.uploadType === 1) {
           this.uploadQN(this.src)
         }
-      } else {
-        // 已上传
-        this.image = this.src
       }
+      this.value = this.src
     },
     // 移除
     remove() {
@@ -127,12 +156,15 @@ export default {
       if (this.uploadType === 1) {
         this.value = `/${data.key}`
       }
-      this.image = this.prefix + this.value
       this.$emit('success', { index: this.index, src: this.value, status: 4 })
     },
     fail() {
       this.status = 3
       this.$emit('fail', { index: this.index, status: 3 })
+    },
+    // 查看
+    view() {
+      window.location.href = this.prefix + this.src
     },
     // 预览
     preview(file) {
@@ -142,7 +174,7 @@ export default {
         reader.file = file
         reader.readAsDataURL(file)
         reader.onload = (res) => {
-          this.image = res.currentTarget.result
+          this.value = res.currentTarget.result
         }
       }
     },
@@ -206,7 +238,7 @@ export default {
           } else {
             // 上传失败
             const res = JSON.parse(xhr.responseText)
-            this.fail()
+            this.fail(res)
           }
         }
       }
@@ -223,29 +255,11 @@ export default {
     },
     // 格式化文件名称
     formatName(name) {
-      // 移除逗号 - 空格 - 转义
+      // 移除逗号 - 空格
       name = name.replace(',', '').replace(/\s*/g, '')
       const lastComma = name.lastIndexOf('.')
       const text = name.slice(0, lastComma)
-      return new Date().getTime() + '/' + this.encode(text) + this.typeSuffix
-    },
-    // url解码
-    decodeName(url) {
-      if (this.status < 4) return ''
-      const name = url.split('://')[1].split('/')[1].split('/')[1]
-      if (!name) return ''
-      const lastComma = name.lastIndexOf('.')
-      if (!lastComma) return ''
-      const text = name.slice(0, lastComma)
-      if (!text) return ''
-      const suffix = name.slice(lastComma, name.length)
-      return this.decode(text) + suffix
-    },
-    encode(data) {
-      return window.btoa(encodeURIComponent(JSON.stringify(data)))
-    },
-    decode(data) {
-      return JSON.parse(decodeURIComponent(window.atob(data)))
+      return new Date().getTime() + '/' + text + this.typeSuffix
     }
   },
   props: {
@@ -275,15 +289,15 @@ export default {
       type: [String, Object, File]
     },
     width: {
-      type: String,
+      type: Number,
       default() {
-        return '120px'
+        return 120
       }
     },
     height: {
-      type: String,
+      type: Number,
       default() {
-        return '120px'
+        return 120
       }
     },
     prePath: {

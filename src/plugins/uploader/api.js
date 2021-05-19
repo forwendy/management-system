@@ -29,7 +29,7 @@ export default {
       mimeType: 'multipart/form-data'
     })
     return instance.get(process.env.VUE_APP_API_ROOT + '/space-os/rest/backstage/portal/qiniu/getToken').then((res) => {
-      return res.uptoken
+      return res.data.uptoken
     })
   },
   // 服务端上传

@@ -11,7 +11,7 @@
         <!-- 原生上传 -->
         <input type="file" :accept="acceptFormat" :multiple="currentMax > 1" @change="beforeUpload" />
         <slot name="placeholder">
-          <div class="placeholder el-icon-plus" :style="{ width: width, height: height }"></div>
+          <div class="placeholder el-icon-plus" :style="showWH"></div>
         </slot>
       </div>
     </div>
@@ -84,6 +84,9 @@ export default {
         newArr.push('.' + arr[i])
       }
       return newArr.join(',')
+    },
+    showWH() {
+      return { width: this.width + 'px', height: this.height + 'px' }
     }
   },
   methods: {
@@ -96,7 +99,7 @@ export default {
             return {
               uploadType: this.uploadType,
               name: el,
-              src: this.prefix + el,
+              src: el,
               status: 4
             }
           })
@@ -161,7 +164,7 @@ export default {
     // 上传成功
     success({ index, src, status }) {
       this.valueArr[index] = src
-      this.list[index].src = this.prefix + src
+      this.list[index].src = src
       this.list[index].status = status
       this.uploaded = this.isUploaded()
       this.changeValue()
@@ -232,8 +235,6 @@ export default {
       default: function () {
         const accept = {
           image: ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'JPG', 'JPEG', 'PNG', 'GIF', 'BMP'],
-          // video : ['flv', 'mpg', 'mpeg', 'avi', 'wmv', 'mov', 'asf', 'rm', 'rmvb', 'mkv', 'm4v', 'mp4'],
-          // 考虑视频播放兼容性
           video: ['mp4', 'mpg', 'mpeg'],
           audio: ['mp3'],
           file: ['ppt', 'pptx', 'doc', 'docx', 'xls', 'xlsx', 'pdf']
@@ -242,15 +243,15 @@ export default {
       }
     },
     width: {
-      type: String,
+      type: Number,
       default() {
-        return '120px'
+        return 120
       }
     },
     height: {
-      type: String,
+      type: Number,
       default() {
-        return '120px'
+        return 120
       }
     },
     prePath: {
