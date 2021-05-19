@@ -1,12 +1,14 @@
 <template>
   <div class="ui-image-view">
-    <template v-if="srcList.length > 1">
+    <template v-if="list.length > 1">
       <el-carousel class="carousel" :style="showWH" :height="height">
-        <el-carousel-item v-for="src in srcList" :key="src">
+        <el-carousel-item v-for="src in list" :key="src">
           <template v-if="type === 'image'">
-            <el-image :style="showWH" :fit="fit" :src="src" :preview-src-list="srcList" :z-index="3000">
+            <el-image :style="showWH" :fit="fit" :src="src" :preview-src-list="list" :z-index="3000">
               <!-- 占位图 -->
-              <img slot="placeholder" class="img-cover" :src="errorImg" />
+              <div slot="placeholder" class="placeholder">
+                <a class="el-icon-loading"></a>
+              </div>
               <!-- 加载失败 -->
               <img slot="error" class="img-cover" :src="errorImg" />
             </el-image>
@@ -19,15 +21,17 @@
     </template>
     <template v-else>
       <template v-if="type === 'image'">
-        <el-image :style="showWH" :fit="fit" :src="prefix + src" :preview-src-list="srcList" :z-index="3000">
+        <el-image :style="showWH" :fit="fit" :src="one" :preview-src-list="list" :z-index="3000">
           <!-- 占位图 -->
-          <img slot="placeholder" class="img-cover" :src="errorImg" />
+          <div slot="placeholder" class="placeholder">
+            <a class="el-icon-loading"></a>
+          </div>
           <!-- 加载失败 -->
           <img slot="error" class="img-cover" :src="errorImg" />
         </el-image>
       </template>
       <template v-if="type === 'video'">
-        <video :style="showWH" :src="prefix + src" controls></video>
+        <video :style="showWH" :src="one" controls></video>
       </template>
     </template>
   </div>
@@ -39,7 +43,7 @@ import defaultImg from '@/assets/imgs/default_img.png'
 export default {
   props: {
     prefix: { type: String, required: true },
-    src: { type: String, required: true },
+    src: { required: true },
     fit: {
       type: String,
       default() {
@@ -64,10 +68,26 @@ export default {
     }
   },
   computed: {
-    srcList() {
-      return this.src.split(',').map((el) => {
-        return this.prefix + el
-      })
+    inputValue() {
+      return typeof this.src === 'string' ? this.src : ''
+    },
+    // 一个元素
+    one() {
+      if (this.list.length === 1) {
+        return this.prefix + this.inputValue
+      } else {
+        return ''
+      }
+    },
+    // 多个个元素
+    list() {
+      if (this.inputValue) {
+        return this.inputValue.split(',').map((el) => {
+          return this.prefix + el
+        })
+      } else {
+        return []
+      }
     },
     errorImg() {
       return this.avatar ? avatar : defaultImg
@@ -98,6 +118,15 @@ export default {
       height: 6px;
       border-radius: 50%;
     }
+  }
+  .placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    background: rgba(0, 0, 0, 0.1);
   }
 }
 </style>

@@ -54,6 +54,10 @@ export default {
           imgs: '/1611563240363/7e8a0994-9cf2-42e0-901d-d4af5d48f4c6[1].jpg,1.jpg,/1566802234373/QQ截图20190826145020.jpg'
         },{
           imgs: '/1611563240363/7e8a0994-9cf2-42e0-901d-d4af5d48f4c6[1].jpg'
+        },{
+          imgs: null
+        },{
+          imgs: 'null'
         }],
         pageIndex: 0,
         pageSize: 20,

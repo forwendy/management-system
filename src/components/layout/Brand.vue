@@ -1,6 +1,6 @@
 <template>
   <div class="brand" :class="{ isCollapse: !isCollapse }">
-    <ImageView class="brand-pic" :prefix="$prefix" :src="brand.loginBg"></ImageView>
+    <ImageView class="brand-pic" :prefix="$prefix" :src="brand.loginBg" height="80px" width="80px"></ImageView>
     <p class="brand-name">{{ brand.name }}</p>
   </div>
 </template>
@@ -33,8 +33,6 @@ export default {
   padding: 40px 15px;
 }
 .brand-pic {
-  width: 80px;
-  height: 80px;
   border-radius: 50%;
   overflow: hidden;
   flex-shrink: 0;
