@@ -7,6 +7,12 @@
       <el-form-item label="图片上传" prop="imgs">
         <Uploader v-model="form.imgs" :max="3"></Uploader>
       </el-form-item>
+      <el-form-item label="Tinymce富文本" prop="html">
+        <TinymceEditor v-model="form.html" placeholder="请输入内容"></TinymceEditor>
+      </el-form-item>
+      <el-form-item label="百度地图" prop="address">
+        <FormMap v-model="form.address"></FormMap>
+      </el-form-item>
       <el-form-item class="but-group">
         <el-button type="primary" @click="save('edit')">确定</el-button>
         <el-button @click="close">取消</el-button>
@@ -16,7 +22,13 @@
 </template>
 
 <script>
+import TinymceEditor from '@/plugins/tinymce/TinymceEditor.vue'
+import FormMap from '@/plugins/baidu/FormMap.vue'
 export default {
+  components: {
+    TinymceEditor,
+    FormMap
+  },
   data() {
     const checkInt = (rule, value, callback) => {
       setTimeout(() => {
@@ -31,7 +43,9 @@ export default {
       loading: false,
       form: {
         id: '',
-        imgs: ''
+        imgs: '',
+        html: '',
+        address: ''
       },
       rules: {
         value: [{ required: true, message: '请输入键值', trigger: 'blur' }],

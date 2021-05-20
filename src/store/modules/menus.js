@@ -19,6 +19,10 @@ const state = {
     id: 'demo-rich-text',
     name: 'DemoRichText',
     path: '/demo/rich-text'
+  },{
+    id: 'demo-map',
+    name: 'DemoMap',
+    path: '/demo/map'
   }],
   // tab菜单对象
   tabs: [],

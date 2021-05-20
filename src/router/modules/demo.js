@@ -18,6 +18,11 @@ let route = [
     path: '/demo/rich-text',
     name: '模板-富文本',
     component: (resolve) => require(['@/views/demo/FormRichText.vue'], resolve)
+  },
+  {
+    path: '/demo/map',
+    name: '模板-地图',
+    component: (resolve) => require(['@/views/demo/FormMap.vue'], resolve)
   }
 ]
 

@@ -16,7 +16,7 @@
       </div>
     </div>
     <!-- 查看图片 -->
-    <ImageViewer v-if="showViewer" :on-close="closeViewer" :url-list="urlList" />
+    <ImageViewer v-if="showViewer" :on-close="closeViewer" :url-list="urlList" :zIndex="3000" />
     <!-- 查看视频 -->
     <el-dialog title="查看图片" :visible.sync="dialogVisible" width="60vw" height="60vh" append-to-body>
       <ImageView v-if="dialogVisible" :prefix="prefix" :type="type" :src="videoStrArr" width="50vw" height="50vh" multiple></ImageView>

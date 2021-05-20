@@ -16,6 +16,7 @@
     "cross-env": "^7.0.3",
     "date-fns": "^2.21.3",
     "element-ui": "^2.15.1",
+    "mqtt": "^4.2.6",
     "tinymce": "5.7.0",
     "vue": "^2.6.11",
     "vue-baidu-map": "^0.21.22",

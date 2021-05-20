@@ -8,7 +8,7 @@
     <ModuleList :page="page" :query="query" @edit="edit" @del="del" @change="changePage"></ModuleList>
     <!-- 表单 -->
     <el-dialog :title="dialogTitle" width="800px" :close-on-click-modal="false" :visible.sync="dialogVisible" append-to-body>
-      <ModuleEdit @close="close"></ModuleEdit>
+      <ModuleEdit v-if="dialogTitle" @close="close"></ModuleEdit>
     </el-dialog>
   </div>
 </template>
