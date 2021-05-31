@@ -1,0 +1,56 @@
+/* tree-table */
+.tree-table{
+  color: #333;
+  font-size: 14px;
+  padding: 15px 15px 50px;
+}
+.tree-table-title{
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 15px;
+  background: rgba(245,245,245,1);
+}
+.tree-table-title>span{
+  text-align: center;
+}
+.tree-table-list .el-tree-node__content {
+  height: 50px;
+  padding: 15px 15px 15px 5px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #eee;
+}
+// 清除tree-table缩进
+// .tree-table .el-tree-node__children .el-tree-node__content {
+//   padding-left: 0 !important;
+// }
+// .tree-table-list>.el-tree-node>.el-tree-node__content .el-tree-node__expand-icon.is-leaf{
+//   display: none;
+// }
+.table-tree-item{
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  justify-content: space-between;
+}
+.table-tree-item>div{
+  display: flex;
+  align-items: center;
+}
+.table-tree-item .move{
+  cursor: move;
+}
+.table-tree-item .iconfont{
+  display: inline-block;
+  font-size: 16px;
+  padding: 15px;
+}
+.no-child .el-tree-node__expand-icon{
+  display: none;
+}
+.no-child .table-tree-item{
+  padding-left: 15px;
+  align-items: center;
+}
+.no-child .table-tree-item>div{
+  justify-content: center;
+}

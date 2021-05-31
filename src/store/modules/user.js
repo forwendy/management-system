@@ -4,7 +4,7 @@ const state = {
   accountId: '', // 用户id
   name: '冯雯', // 用户名
   avatar: '/1607931791141/08f7f9e6be4d10a2409240e64d987d2278a542d418d6-VlQ7qM_fw658.jpg', // 头像
-  token: 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZWZjNWI4Ny1iMDFhLTRmMGYtOThmZC02ZmY5MWNiZjk4ZGUiLCJjcmVhdGVkIjoxNjIwNzE3NjY0OTMwLCJleHAiOjE2MjEzMjI0NjR9.Agfc4badumZ2FI5Y9FrHXkm9_idWFM6kBlepd18S7x9FNcA3cp7dUw_ECrfZgBLuShw_QTCIDpMFnH8MEC-Gtg',
+  token: 'spaceoseyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxNjAwNjlkMGQ1Mzc0NTM3ODFkM2I2YmJmNTM2YmQwYiIsImNyZWF0ZWQiOjE2MjI0NTE5ODYyODYsImV4cCI6MTYyMzA1Njc4Nn0.xhURLq4oJ7WmzA5FFI7obJLNpZgZyZGvfmvCUIF7dpkjBMQDw7-p1IPVdJFT4ITlOQqp5MwPakFiXmLUSM07VQ',
   // 权限信息
   menus: [], // 菜单权限
   buttons: [{perms:'add'}], // 按钮权限

@@ -2,7 +2,12 @@ let route = [
   {
     path: '/demo',
     name: '模板-列表页',
-    component: (resolve) => require(['@/views/demo/ModuleIndex.vue'], resolve)
+    component: (resolve) => require(['@/views/demo/list/ModuleIndex.vue'], resolve)
+  },
+  {
+    path: '/demo/tree',
+    name: '模板-树形表页',
+    component: (resolve) => require(['@/views/demo/tree-list/Index.vue'], resolve)
   },
   {
     path: '/demo/detail',

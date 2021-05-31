@@ -23,6 +23,10 @@ const state = {
     id: 'demo-map',
     name: 'DemoMap',
     path: '/demo/map'
+  },{
+    id: 'demo-tree',
+    name: 'DemoTree',
+    path: '/demo/tree'
   }],
   // tab菜单对象
   tabs: [],

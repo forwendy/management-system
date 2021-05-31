@@ -8,6 +8,7 @@ import {
   Image,
   Carousel,
   CarouselItem,
+  Tree,
   Table,
   TableColumn,
   Pagination,
@@ -52,6 +53,7 @@ export default {
     V.use(Image)
     V.use(Carousel)
     V.use(CarouselItem)
+    V.use(Tree)
     V.use(Table)
     V.use(TableColumn)
     V.use(Pagination)
