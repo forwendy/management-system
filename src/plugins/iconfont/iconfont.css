@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 2539720 */
-  src: url('iconfont.woff2?t=1621242250147') format('woff2'),
-       url('iconfont.woff?t=1621242250147') format('woff'),
-       url('iconfont.ttf?t=1621242250147') format('truetype');
+  src: url('iconfont.woff2?t=1622513446415') format('woff2'),
+       url('iconfont.woff?t=1622513446415') format('woff'),
+       url('iconfont.ttf?t=1622513446415') format('truetype');
 }
 
 .iconfont {
@@ -13,12 +13,28 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-xls:before {
-  content: "\e665";
+.icon-yidong:before {
+  content: "\e63e";
 }
 
-.icon-ppt:before {
-  content: "\e643";
+.icon-MP3:before {
+  content: "\e642";
+}
+
+.icon-MP4:before {
+  content: "\e7a8";
+}
+
+.icon-ppt1:before {
+  content: "\e66a";
+}
+
+.icon-zip:before {
+  content: "\e66e";
+}
+
+.icon-xls:before {
+  content: "\e665";
 }
 
 .icon-pdf:before {

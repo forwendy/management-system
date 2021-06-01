@@ -6,18 +6,46 @@
   "description": "https://github.com/forwendy/management-system.git",
   "glyphs": [
     {
+      "icon_id": "5286713",
+      "name": "移动",
+      "font_class": "yidong",
+      "unicode": "e63e",
+      "unicode_decimal": 58942
+    },
+    {
+      "icon_id": "19649322",
+      "name": "MP3",
+      "font_class": "MP3",
+      "unicode": "e642",
+      "unicode_decimal": 58946
+    },
+    {
+      "icon_id": "19671112",
+      "name": "MP4",
+      "font_class": "MP4",
+      "unicode": "e7a8",
+      "unicode_decimal": 59304
+    },
+    {
+      "icon_id": "7684642",
+      "name": "ppt",
+      "font_class": "ppt1",
+      "unicode": "e66a",
+      "unicode_decimal": 58986
+    },
+    {
+      "icon_id": "7684654",
+      "name": "zip",
+      "font_class": "zip",
+      "unicode": "e66e",
+      "unicode_decimal": 58990
+    },
+    {
       "icon_id": "7684622",
       "name": "excel",
       "font_class": "xls",
       "unicode": "e665",
       "unicode_decimal": 58981
-    },
-    {
-      "icon_id": "19649324",
-      "name": "ppt",
-      "font_class": "ppt",
-      "unicode": "e643",
-      "unicode_decimal": 58947
     },
     {
       "icon_id": "19649332",

@@ -10,7 +10,7 @@
         <div style="width: 150px; justify-content: space-around">
           <el-button size="mini" @click.stop="edit(data.id)">编辑</el-button>
           <el-button size="mini" type="danger" @click.stop="del(data.id)">删除</el-button>
-          <span class="iconfont move">&#xe63e;</span>
+          <span class="iconfont icon-yidong"></span>
         </div>
       </div>
     </el-tree>
