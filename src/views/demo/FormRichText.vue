@@ -36,7 +36,7 @@ export default {
 }
 </script>
 
-<style class="scss">
+<style lang="scss" scoped>
 .edit-form {
   margin: 0 15px;
   padding: 50px;
