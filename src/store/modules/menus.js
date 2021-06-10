@@ -85,8 +85,10 @@ const mutations = {
     state.tabs = state.tabs.filter((obj) => obj.id == id)
   },
   // 移除全部tab
-  REMOVE_ALL_TAB() {
-    router.replace('/')
+  REMOVE_ALL_TAB(state) {
+    state.tabs = []
+    state.activeId = ''
+    router.replace('/welcome')
   },
   // 控制左侧菜单的显示隐藏
   CHANGE_LEFT_MENU(state) {
@@ -108,6 +110,7 @@ const actions = {
     if (prevTab) {
       router.replace(prevTab.path)
     } else {
+      state.activeId = ''
       router.replace('/welcome')
     }
   }

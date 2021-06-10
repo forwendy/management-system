@@ -10,7 +10,7 @@
       <div class="table" v-loading="tableLoading" element-loading-background="rgba(245, 250, 255, 0.8)">
         <el-scrollbar class="wrap" style="height: 100%;">
           <keep-alive>
-            <router-view></router-view>
+            <router-view v-if="isRouterAlive"></router-view>
           </keep-alive>
         </el-scrollbar>
       </div>
@@ -52,6 +52,22 @@ export default {
       immediate: true
     }
   },
+  provide() {
+    return {
+      reload: this.reload
+    }
+  },
+  data() {
+    return {
+      isRouterAlive: true
+    }
+  },
+  methods: {
+    reload() {
+      this.isRouterAlive = false
+      this.$nextTick(() => (this.isRouterAlive = true))
+    }
+  }
 }
 </script>
 
