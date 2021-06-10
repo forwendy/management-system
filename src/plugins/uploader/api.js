@@ -1,4 +1,6 @@
 import axios from 'axios'
+// 华为云 BrowserJS SDK
+import ObsClient from '@/plugins/uploader/js/esdk-obs-browserjs-without-polyfill-3.19.9.min.js'
 export default {
   // 上传七牛云
   async uploadFileQN(file) {
@@ -52,33 +54,31 @@ export default {
       }
     })
   },
-  // url解码
-  decodeName(url) {
-    if (this.status < 4) return ''
-    const name = url.split('://')[1].split('//')[1].split('/')[1]
-    if (!name) return ''
-    const lastComma = name.lastIndexOf('.')
-    if (!lastComma) return ''
-    const text = name.slice(0, lastComma)
-    if (!text) return ''
-    const suffix = name.slice(lastComma, name.length)
-    return decode(text) + suffix
-  },
-  // 格式化文件名称
-  formatName(name) {
-    // 移除逗号 - 空格 - 转义
-    name = name.replace(',', '').replace(/\s*/g, '')
-    const lastComma = name.lastIndexOf('.')
-    const text = name.slice(0, lastComma)
-    const suffix = name.slice(lastComma, name.length)
-    return new Date().getTime() + '/' + text + suffix
+  // 华为云上传
+  uploadHW({ file, key }) {
+    const obsClient = new ObsClient({
+      access_key_id: process.env.VUE_APP_HW_ACCESS_KEY_ID,
+      secret_access_key: process.env.VUE_APP_HW_SECRET_ACCESS_KEY,
+      server: process.env.VUE_APP_HW_SERVER,
+      timeout: 60 * 5
+    })
+    return obsClient
+      .putObject({
+        Bucket: process.env.VUE_APP_HW_BUCKET,
+        Key: key,
+        Metadata: { property: 'property-value' },
+        SourceFile: file,
+        ProgressCallback: (transferredAmount, totalAmount, totalSeconds) => {
+
+        }
+      })
+      .then((result) => {
+        if (result.InterfaceResult) {
+          return '/'+key
+        }
+      })
+      .catch((err) => {
+        return Promise.reject(err)
+      })
   }
-}
-
-const encode = (data) => {
-  return window.btoa(encodeURIComponent(JSON.stringify(data)))
-}
-
-const decode = (data) => {
-  return JSON.parse(decodeURIComponent(window.atob(data)))
 }

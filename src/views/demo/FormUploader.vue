@@ -1,5 +1,9 @@
 <template>
   <el-form class="edit-form" :model="form" :rules="rules" ref="edit" label-width="120px" size="medium">
+    <h1>华为云上传</h1>
+    <el-form-item label="图片上传" prop="imgsHW">
+      <Uploader v-model="form.imgsHW" :uploadType="2" :max="9"></Uploader>
+    </el-form-item>
     <h1>七牛云上传</h1>
     <el-form-item label="图片上传" prop="imgsQN">
       <Uploader v-model="form.imgsQN" :uploadType="1" :max="9"></Uploader>
@@ -46,6 +50,7 @@ export default {
     }
     return {
       form: {
+        imgsHW: '/1623311136352/4b5e90d2328adc367bb28934a4c97515e9e89b3c25184-Mlvhzy_fw658.jpg',
         imgsQN: '/1621308344074/JTIyTXVsdGlhdmF0YXItV2VuZHklMjI=.png',
         filesQN: '/1621308494053/JTIyJUU2JTk2JUIwJUU1JUJCJUJBWExTJUU1JUI3JUE1JUU0JUJEJTlDJUU4JUExJUE4JTIy.xls',
         mp4QN: '/1621393626866/53c901bf87f69efc6cb3980960e168b7.mp4',

@@ -18,7 +18,7 @@
       <a v-show="status === 1" class="el-icon-loading"></a>
     </div>
     <!-- 文件展示 -->
-    <template v-show="type === 'file'">
+    <template v-if="type === 'file'">
       <img v-if="thumbnail === 'pdf'" class="file" src="../uploader/images/pdf.png" />
       <img v-if="thumbnail === 'ppt'" class="file" src="../uploader/images/ppt.png" />
       <img v-if="thumbnail === 'xls'" class="file" src="../uploader/images/xls.png" />
@@ -38,6 +38,8 @@
 
 <script>
 import api from '@/plugins/uploader/api.js'
+// 华为云 BrowserJS SDK
+import ObsClient from '@/plugins/uploader/js/esdk-obs-browserjs-without-polyfill-3.19.9.min.js'
 export default {
   created() {
     this.handle()
@@ -57,25 +59,27 @@ export default {
   },
   computed: {
     image() {
-      if (this.uploadType === 0) {
-        return this.prefix + this.value
-      } else {
-        if (this.status > 3) {
+      if (this.status > 3) {
+        if (this.uploadType === 1) {
           return this.prefix + this.value + '?imageView2/1/w/' + this.width + '/h/' + this.height
+        } else if (this.uploadType === 2) {
+          return this.prefix + this.value + `?x-image-process=image/resize,w_${this.width},h_${this.height}/imageslim`
         } else {
-          return this.value
+          return this.prefix + this.value
         }
+      } else {
+        return this.value
       }
     },
     video() {
-      if (this.uploadType === 0) {
-        return this.prefix + this.value
-      } else {
-        if (this.status > 3) {
+      if (this.status > 3) {
+        if (this.uploadType === 1) {
           return this.prefix + this.value + '?vframe/jpg/offset/0/w/' + this.width
         } else {
-          return this.value
+          return this.prefix + this.value
         }
+      } else {
+        return this.value
       }
     },
     // 上传地址
@@ -86,6 +90,9 @@ export default {
       if (this.uploadType === 1) {
         return this.$uploader.uploadQN
       }
+      if (this.uploadType === 2) {
+        return this.$uploader.uploadHW
+      }
     },
     // 访问前缀
     prefix() {
@@ -94,6 +101,9 @@ export default {
       }
       if (this.uploadType === 1) {
         return this.$uploader.prefixQN
+      }
+      if (this.uploadType === 2) {
+        return this.$uploader.prefixHW
       }
     },
     // 文件尾缀
@@ -141,6 +151,10 @@ export default {
         if (this.uploadType === 1) {
           this.uploadQN(this.src)
         }
+        // 华为云上传
+        if (this.uploadType === 2) {
+          this.uploadHW(this.src)
+        }
       }
       this.value = this.src
     },
@@ -160,6 +174,9 @@ export default {
       }
       if (this.uploadType === 1) {
         this.value = `/${data.key}`
+      }
+      if (this.uploadType === 2) {
+        this.value = `/${data}`
       }
       this.$emit('success', { index: this.index, src: this.value, status: 4 })
     },
@@ -203,6 +220,39 @@ export default {
       if (this.uploadType === 1) {
         this.uploadQN(this.src)
       }
+      // 华为云上传
+      if (this.uploadType === 2) {
+        this.uploadHW(this.src)
+      }
+    },
+    // 华为云
+    uploadHW(file) {
+      this.status = 2
+      const key = this.formatName(file.name)
+      const obsClient = new ObsClient({
+        access_key_id: process.env.VUE_APP_HW_ACCESS_KEY_ID,
+        secret_access_key: process.env.VUE_APP_HW_SECRET_ACCESS_KEY,
+        server: process.env.VUE_APP_HW_SERVER,
+        timeout: 60 * 5
+      })
+      obsClient
+        .putObject({
+          Bucket: process.env.VUE_APP_HW_BUCKET,
+          Key: key,
+          Metadata: { property: 'property-value' },
+          SourceFile: file,
+          ProgressCallback: (transferredAmount, totalAmount, totalSeconds) => {
+            this.percentComplete = Math.round((transferredAmount * 100) / totalAmount)
+          }
+        })
+        .then((result) => {
+          if (result.InterfaceResult) {
+            this.success(key)
+          }
+        })
+        .catch((err) => {
+          this.fail(err)
+        })
     },
     // 服务器上传
     upload(file) {

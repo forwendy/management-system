@@ -65,10 +65,19 @@ export default {
         menubar: false,
         images_upload_handler: (blobInfo, success, failure) => {
           const file = blobInfo.blob()
-          commonApi
-            .uploadFileQN(file)
-            .then((res) => {
-              const src = this.$prefix + '/' + res.key
+          // 七牛云
+          // commonApi
+          //   .uploadFileQN(file)
+          //   .then((res) => {
+          //     const src = this.$prefix + '/' + res.key
+          //     success(src)
+          //   })
+          //   .catch(() => {
+          //     failure('上传失败')
+          //   })
+          // 服务端
+          commonApi.serverUpload({file, prePath: 'TinymceEditor' }).then((res) => {
+              const src = this.$prefix + '/' + res.data
               success(src)
             })
             .catch(() => {

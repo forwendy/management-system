@@ -70,12 +70,16 @@ export default {
       arr = [first].concat(arr)
       return arr.join(',')
     },
+    // 访问前缀
     prefix() {
       if (this.uploadType === 0) {
         return this.$uploader.prefix
       }
       if (this.uploadType === 1) {
         return this.$uploader.prefixQN
+      }
+      if (this.uploadType === 2) {
+        return this.$uploader.prefixHW
       }
     },
     // 当前还可上传文件数量
