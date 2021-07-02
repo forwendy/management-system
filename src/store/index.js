@@ -11,6 +11,9 @@ if (!window.Vuex) Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
+    // 项目版本
+    version: process.env.VUE_APP_VERSION,
+    localKey: process.env.VUE_APP_PROJECT + '-' + process.env.VUE_APP_ENV,
     tableLoading: false
   },
   getters,

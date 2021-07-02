@@ -6,6 +6,34 @@
   "description": "https://github.com/forwendy/management-system.git",
   "glyphs": [
     {
+      "icon_id": "1011811",
+      "name": "close",
+      "font_class": "close",
+      "unicode": "e633",
+      "unicode_decimal": 58931
+    },
+    {
+      "icon_id": "5769243",
+      "name": "工单",
+      "font_class": "gongdan",
+      "unicode": "ec37",
+      "unicode_decimal": 60471
+    },
+    {
+      "icon_id": "8949005",
+      "name": "组织架构",
+      "font_class": "zuzhijiagou",
+      "unicode": "e656",
+      "unicode_decimal": 58966
+    },
+    {
+      "icon_id": "16545340",
+      "name": "设备",
+      "font_class": "equipment",
+      "unicode": "e7a6",
+      "unicode_decimal": 59302
+    },
+    {
       "icon_id": "5286713",
       "name": "移动",
       "font_class": "yidong",

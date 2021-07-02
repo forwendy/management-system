@@ -1,14 +1,14 @@
 <template>
   <div class="main">
     <div class="left">
-      <brand style="height: 20vh;"></brand>
-      <left-menu style="height: 80vh;" :class="{active: !leftMenuShow}"></left-menu>
+      <brand style="height: 20vh"></brand>
+      <left-menu style="height: 80vh" :class="{ active: !leftMenuShow }"></left-menu>
     </div>
-    <div class="right" :class="{active: !leftMenuShow}">
+    <div class="right" :class="{ active: !leftMenuShow }">
       <top-menu class="top-menu"></top-menu>
       <tab-menu class="tab-menu"></tab-menu>
       <div class="table" v-loading="tableLoading" element-loading-background="rgba(245, 250, 255, 0.8)">
-        <el-scrollbar class="wrap" style="height: 100%;">
+        <el-scrollbar class="wrap" style="height: 100%">
           <keep-alive>
             <router-view v-if="isRouterAlive"></router-view>
           </keep-alive>
@@ -25,8 +25,10 @@ import TopMenu from '@/components/layout/TopMenu.vue'
 import TabMenu from '@/components/layout/TabMenu.vue'
 import Brand from '@/components/layout/Brand.vue'
 export default {
+  inject: ['localStorage'],
   name: 'Home',
   created() {
+    this.localStorage()
   },
   components: {
     LeftMenu,
@@ -36,10 +38,10 @@ export default {
   },
   computed: {
     ...mapState({
-      leftMenuShow: state => state.menus.leftMenuShow,
-      tableLoading: state => state.tableLoading,
-      tabs:  state => state.menus.tabs,
-      active: state => state.menus.activeId
+      leftMenuShow: (state) => state.menus.leftMenuShow,
+      tableLoading: (state) => state.tableLoading,
+      tabs: (state) => state.menus.tabs,
+      active: (state) => state.menus.activeId
     })
   },
   watch: {

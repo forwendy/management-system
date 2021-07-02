@@ -8,7 +8,7 @@
             <template v-for="(obj, i) in tabs">
               <span :key="'tab-item'+i" class="tab-item" :class="{ 'active': active == obj.id }" :id="'tab-'+obj.id">
                 <span class="text" @click="showTab(obj)">{{ obj.name }}</span>
-                <i v-if="obj.id != 'home'" class="el-icon-close" @click="removeTab(obj.id)">&#xe633;</i>
+                <i v-if="obj.id != 'home'" class="el-icon-close" @click="removeTab(obj.id)"></i>
               </span>
             </template>
           </div>
