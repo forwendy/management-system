@@ -52,13 +52,16 @@ export default {
       inserted: function (el, binding, vnode) {
         const vm = vnode.context
         let draging = null
+        let target = null
         el.ondragstart = (e) => {
           e.dataTransfer.setData('te', e.target.innerText)
           draging = e.target
         }
         el.ondragover = (e) => {
           e.preventDefault()
-          const target = e.target
+          target = e.target
+        }
+        el.ondragend = (e)=>{
           const flag = Boolean(target.getAttribute('draggable'))
           const targetIndex = Number(target.getAttribute('data-index'))
           const dragingIndex = Number(draging.getAttribute('data-index'))
