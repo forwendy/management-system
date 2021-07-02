@@ -33,6 +33,11 @@ const state = {
       id: 'demo-tree',
       name: 'DemoTree',
       path: '/demo/tree'
+    },
+    {
+      id: 'demo-sort',
+      name: 'DemoSort',
+      path: '/demo/sort'
     }
   ],
   // tab菜单对象

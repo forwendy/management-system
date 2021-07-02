@@ -37,9 +37,9 @@ export default {
   },
   created() {
     // 返回登录页的时候清除全局缓存数据
-    localStorage.removeItem(this.$localKey + 'Store')
-    const init = this.$store.getters.reset
-    this.$store.replaceState(init)
+    // localStorage.removeItem(this.$localKey + 'Store')
+    // const init = this.$store.getters.reset
+    // this.$store.replaceState(init)
   },
   data() {
     return {

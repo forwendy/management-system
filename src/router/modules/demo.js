@@ -28,6 +28,11 @@ let route = [
     path: '/demo/map',
     name: '模板-地图',
     component: (resolve) => require(['@/views/demo/FormMap.vue'], resolve)
+  },
+  {
+    path: '/demo/sort',
+    name: '模板-格子排序',
+    component: (resolve) => require(['@/views/demo/sort/Index.vue'], resolve)
   }
 ]
 
