@@ -27,6 +27,7 @@ Vue.prototype.$axios = axios
 
 // 资源地址
 Vue.prototype.$prefix = process.env.VUE_APP_QI_NIU_PREFIX
+Vue.prototype.$localKey = process.env.VUE_APP_PROJECT + '-' + process.env.VUE_APP_ENV
 
 new Vue({
   router,

@@ -93,7 +93,6 @@ const mutations = {
   REMOVE_ALL_TAB(state) {
     state.tabs = []
     state.activeId = ''
-    router.replace('/welcome')
   },
   // 控制左侧菜单的显示隐藏
   CHANGE_LEFT_MENU(state) {
@@ -113,7 +112,7 @@ const actions = {
     const prevTab = state.tabs[index - 1]
     commit('REMOVE_TAB', id)
     if (prevTab) {
-      router.replace(prevTab.path)
+      router.replace(prevTab.view)
     } else {
       state.activeId = ''
       router.replace('/welcome')

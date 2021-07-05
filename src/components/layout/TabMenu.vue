@@ -66,6 +66,7 @@ export default {
       }
       if(command === 'c'){
         this.$store.commit('menus/REMOVE_ALL_TAB')
+        this.$router.replace('/welcome')
       }
     },
     // 上一个tab

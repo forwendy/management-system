@@ -58,6 +58,7 @@ export default {
       this.$store.commit('menus/CHANGE_LEFT_MENU')
     },
     exit() {
+      this.$store.commit('menus/REMOVE_ALL_TAB')
       this.$router.replace({ path: `/login` })
     },
     set(command) {

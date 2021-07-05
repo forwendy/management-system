@@ -17,13 +17,13 @@
             <el-submenu :index="a.id" :key="a.id">
               <!-- 主菜单标题 -->
               <template slot="title">
-                <i class="iconfont icon" v-html="a.icon"></i>
+                <i class="iconfont icon" style="width: 24px;" v-html="a.icon"></i>
                 <span>{{a.name}}</span>
               </template>
               <div v-for="b in a.children" :key="b.id">
                 <!-- 下级 -->
                 <el-submenu v-if="b.children" :index="b.id">
-                  <span slot="title">{{ b.name }}</span>
+                  <span slot="title"> <i class="iconfont icon"></i>{{ b.name }}</span>
                   <el-menu-item v-for="c in b.children" :key="c.id" :index="c.id" @click="showMenu(c)">{{c.name}}</el-menu-item>
                 </el-submenu>
                 <!-- 下级 -->
@@ -35,7 +35,7 @@
                   </el-menu-item>
                 </el-menu-item-group> -->
                 <!-- 分组 -->
-                <el-menu-item v-if="!b.children" :index="b.id" @click="showMenu(b)"> {{b.name}} </el-menu-item>
+                <el-menu-item v-if="!b.children" :index="b.id" @click="showMenu(b)"> <i class="iconfont icon"></i> {{b.name}} </el-menu-item>
               </div>
             </el-submenu>
           </template>

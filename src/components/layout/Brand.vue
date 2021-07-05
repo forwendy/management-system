@@ -33,6 +33,8 @@ export default {
   padding: 40px 15px;
 }
 .brand-pic {
+  height: 80px;
+  width: 80px;
   border-radius: 50%;
   overflow: hidden;
   flex-shrink: 0;
