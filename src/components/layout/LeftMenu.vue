@@ -9,7 +9,7 @@
         <template v-for="a in tree">
           <template v-if="!a.children">
             <el-menu-item :index="a.id" :key="a.id" @click="showMenu(a)">
-              <i class="iconfont icon" v-html="a.icon"></i>
+              <i class="iconfont icon" style="margin-left: 4px;"  v-html="a.icon"></i>
               <span slot="title">{{a.name}}</span>
             </el-menu-item>
           </template>
@@ -35,7 +35,7 @@
                   </el-menu-item>
                 </el-menu-item-group> -->
                 <!-- 分组 -->
-                <el-menu-item v-if="!b.children" :index="b.id" @click="showMenu(b)"> <i class="iconfont icon"></i> {{b.name}} </el-menu-item>
+                <el-menu-item v-if="!b.children" :index="b.id" @click="showMenu(b)"> <i style="width: 4px;" class="iconfont icon"></i> {{b.name}} </el-menu-item>
               </div>
             </el-submenu>
           </template>

@@ -50,6 +50,7 @@ export default {
         // 根据路由判断当前菜单位置
         const path = this.$route.path
         this.$store.dispatch('menus/setActiveTab', path)
+        this.right()
       },
       immediate: true
     }
@@ -68,6 +69,23 @@ export default {
     reload() {
       this.isRouterAlive = false
       this.$nextTick(() => (this.isRouterAlive = true))
+    },
+    right() {
+      if (!this.$store.state.user.token) {
+        this.$router.replace('/login')
+        return
+      }
+      const path = this.$route.path
+      const menus = this.$store.state.user.menus
+      if (path === '/welcome') return
+      const has = menus
+        .map((el) => {
+          return el.view === path
+        })
+        .some((el) => {
+          return el
+        })
+      if (!has) this.$router.replace('/welcome')
     }
   }
 }

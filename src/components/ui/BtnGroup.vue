@@ -2,7 +2,7 @@
   <div class="fixed-btn btn-group">
     <template v-if="btns.length === 1">
       <el-tooltip effect="dark" :content="addObj.name" placement="top">
-        <span v-if="addObj.show" class="el-icon-plus circle-btn" @click="click(addObj.event)"></span>
+        <span v-if="addObj.show" class="icon-menus circle-btn" :class="icon" @click="click(addObj.event)"></span>
       </el-tooltip>
     </template>
     <template v-else>
@@ -21,6 +21,12 @@
 import { mapGetters } from 'vuex'
 export default {
   props: {
+    icon: {
+      type: String,
+      default(){
+        return 'el-icon-plus'
+      }
+    },
     arr: {
       type: Array,
       default() {
