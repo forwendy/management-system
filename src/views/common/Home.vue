@@ -71,7 +71,9 @@ export default {
       this.$nextTick(() => (this.isRouterAlive = true))
     },
     right() {
-      if (!this.$store.state.user.token) {
+      const store = JSON.parse(localStorage.getItem(this.$localKey + 'Store'))
+      const token = this.$store.state.user.token || store.user.token
+      if (!token) {
         this.$router.replace('/login')
         return
       }

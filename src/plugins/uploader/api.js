@@ -15,7 +15,7 @@ export default {
     const uptoken = await this.getQNToken()
     formData.append('token', uptoken)
     formData.append('file', file)
-    formData.append('key', this.formatName(file.name))
+    formData.append('key', file.name)
     return instance.post(process.env.VUE_APP_QI_NIU_UP, formData).then((res) => {
       if (res.status === 200) {
         return res.data
@@ -45,7 +45,7 @@ export default {
     })
     const formData = new FormData()
     formData.append('file', file)
-    formData.append('filename', formatName(file.name))
+    formData.append('filename', file.name)
     return instance.post(process.env.VUE_APP_UPLOAD + `?prePath=${prePath}`, formData).then((res) => {
       if (res.status === 200) {
         return res.data
